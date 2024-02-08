@@ -10,7 +10,7 @@
 )
 
 #let project(title, professor, author, body) = {
-  let time = datetime.today().display()
+  let time = datetime.today().display("[day].[month].[year]")
   let abstract = []
   template.note_page(title, author, professor, author, time, abstract, body)
 }
