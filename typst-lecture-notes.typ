@@ -9,7 +9,7 @@
 #let h1_marker = counter("h1")
 #let h2_marker = counter("h2")
 
-#let note_block(body, class: "Block", fill: rgb("#FFFFFF"), stroke: rgb("#000000")) = {
+#let note_block(body, title: "", class: "Block", fill: rgb("#FFFFFF"), stroke: rgb("#000000")) = {
   let block_counter = counter(class)
 
   locate(loc => {
@@ -25,7 +25,9 @@
     let serial_label = label(class + " " + serial_num)
         
     v(2pt)
-    text(12pt, weight: "bold")[#class #serial_num #serial_label #block_counter.step()]
+
+    [#title #h(1fr) *#class #serial_num #serial_label #block_counter.step()*]
+    
     v(-8pt)
 
     block(fill:fill,
@@ -42,8 +44,8 @@
   body, class: "Definition", fill: rgb("#EDF1D6"), stroke: rgb("#609966")
 )
 
-#let theorem(body) = note_block(
-  body, class: "Theorem", fill: rgb("#FEF2F4"), stroke: rgb("#EE6983")
+#let theorem = note_block.with(
+  class: "Theorem", fill: rgb("#FEF2F4"), stroke: rgb("#EE6983")
 )
 
 #let lemma(body) = note_block(
