@@ -24,6 +24,13 @@
   class: "Notation", fill: rgb("#edcd82"), stroke: rgb("#966901")
 )
 
+#let proof(body) = block(spacing: 11.5pt, {
+  emph[Proof.]
+  [ ] + body
+  h(1fr)
+  box(scale(160%, origin: bottom + right, sym.square.stroked))
+})
+
 #let project(title, professor, author, body) = {
   let time = datetime.today().display("[day].[month].[year]")
   let abstract = []
