@@ -36,7 +36,3 @@
   let abstract = []
   template.note_page(title, author, professor, author, time, abstract, body)
 }
-
-#show table: align.with(center)
-#set table(inset: 3mm)
-
