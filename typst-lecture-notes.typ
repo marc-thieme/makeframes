@@ -39,23 +39,6 @@
   })
 }
 
-// You can change the class name or color here
-#let definition(body) = note_block(
-  body, class: "Definition", fill: rgb("#EDF1D6"), stroke: rgb("#609966")
-)
-
-#let theorem = note_block.with(
-  class: "Theorem", fill: rgb("#FEF2F4"), stroke: rgb("#EE6983")
-)
-
-#let lemma(body) = note_block(
-  body, class: "Lemma", fill: rgb("#FFF4E0"), stroke: rgb("#F4B183")
-)
-
-#let corollary(body) = note_block(
-  body, class: "Corollary", fill: rgb("#F7FBFC"), stroke: rgb("#769FCD")
-)
-
 
 /* Figures */
 // The numbering policy is as before, and the default display is centered
