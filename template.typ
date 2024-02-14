@@ -24,6 +24,10 @@
   class: "Notation", fill: rgb("#edcd82"), stroke: rgb("#966901")
 )
 
+#let approach = template.note_block.with(
+  class: "Approach", fill: rgb("e2c271"), stroke: rgb("635021")
+)
+
 #let proof(body) = block(spacing: 11.5pt, {
   emph[Proof.]
   [ ] + body
