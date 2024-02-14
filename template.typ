@@ -16,11 +16,11 @@
   class: "Corollary", fill: rgb("#F7FBFC"), stroke: rgb("#769FCD")
 )
 
-#let note(body) = template.note_block.with(
+#let note = template.note_block.with(
   class: "Note", fill: rgb("#ef8064"), stroke: rgb("#8c4a39")
 )
 
-#let notation(body) = template.note_block.with(
+#let notation = template.note_block.with(
   class: "Notation", fill: rgb("#edcd82"), stroke: rgb("#966901")
 )
 
