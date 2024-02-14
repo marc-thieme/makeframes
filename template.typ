@@ -38,5 +38,12 @@
 #let project(title, professor, author, body) = {
   let time = datetime.today().display("[day].[month].[year]")
   let abstract = []
+
+  show table: set align(center)
+  set table(inset: 3mm)
+
+  // Insert the 0-space to avoid infinit recursion
+  show regex("\biff\b"): (body) => [_if#h(0pt)f_]
+
   template.note_page(title, author, professor, author, time, abstract, body)
 }
