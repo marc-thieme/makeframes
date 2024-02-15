@@ -28,6 +28,10 @@
   class: "Approach", fill: rgb("e2c271"), stroke: rgb("635021")
 )
 
+#let task = template.note_block.with(
+  class: "Exersice", fill: gray.lighten(60%), stroke: gray.darken(60%))
+)
+
 #let proof(body) = block(spacing: 11.5pt, {
   emph[Proof.]
   [ ] + body
