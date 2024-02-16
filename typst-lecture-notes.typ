@@ -227,20 +227,14 @@
       heading.where(level: 1).after(loc),
       loc)
 
+
       // Right- and left-justified on odd and even pages, respectively
       // Automatically matches the nearest level 1 title
-      if calc.odd(loc.page()) {
-        if h1_before == (){
-          align(right)[_ #h1_after.first().body _ #v(-6pt) #line(length: 40%)]
-        } else {
-          align(right)[_ #h1_before.last().body _ #v(-6pt) #line(length: 40%)]
-        }
-      } else {
-        if h1_before == (){
-          align(left)[_ #h1_after.first().body _ #v(-6pt) #line(length: 40%)]
-        } else {
-          align(left)[_ #h1_before.last().body _ #v(-6pt) #line(length: 40%)]
-        }
+      // let nearest_heading = (h1_before, h1_after, (heading(""))).find(arr => arr != ()).body
+      let headings = (..h1_before, ..h1_after)
+      if headings.len() != 0 {
+        let align_side = if calc.odd(loc.page()) {right} else {left}
+        align(align_side)[_ #headings.first() _ #v(-6pt) #line(length: 40%)]
       }
     }),
     
