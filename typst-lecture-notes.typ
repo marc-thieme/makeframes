@@ -1,6 +1,7 @@
 // Template from: https://github.com/BeitianMa/typst-lecture-notes
 
 // TODO: 1. Make sure no page breaks between the blocks and their titles
+// TODO: 2. Write show rule for references so their counter and class show up
 
 /* Blocks */
 // Pls add or remove elements in this array first,
@@ -12,7 +13,7 @@
 #let note_block(body, title: "", class: "Block", fill: rgb("#FFFFFF"), stroke: rgb("#000000")) = {
   let block_counter = counter(class)
 
-  locate(loc => {
+  let body = locate(loc => {
     // Returns the serial number of the current block
     // The format is just like "Definition 1.3.1"
     let serial_num = (
@@ -37,6 +38,9 @@
     stroke:stroke,
     body)
   })
+  // Wrapping in figure makes element labellable at the price of disallowing page breaks in between
+  // TODO: Use correct supplement name and use figure kind for counter
+  figure(body)
 }
 
 
@@ -62,16 +66,6 @@
     set align(center)
     text(12pt, weight: "bold")[Figure #serial_num #serial_label #figure_counter.step()]
   })
-}
-
-
-/* Proofs */
-#let proof(body) = {
-  [*#smallcaps("Proof"): *]
-
-  [#body]
-
-  align(right)[*End of Proof*]
 }
 
 
@@ -234,7 +228,7 @@
       let headings = (..h1_before, ..h1_after)
       if headings.len() != 0 {
         let align_side = if calc.odd(loc.page()) {right} else {left}
-        align(align_side)[_ #headings.first() _ #v(-6pt) #line(length: 40%)]
+        align(align_side)[_ #headings.first().body _ #v(-6pt) #line(length: 40%)]
       }
     }),
     
