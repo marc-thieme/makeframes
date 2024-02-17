@@ -1,4 +1,5 @@
 #import "typst-lecture-notes.typ" as template
+#import template: break_page_after_chapters
 
 #let definition = template.note_block.with(
   class: "Definition", fill: rgb("#EDF1D6"), stroke: rgb("#609966")
