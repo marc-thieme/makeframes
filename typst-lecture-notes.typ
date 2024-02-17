@@ -80,6 +80,19 @@
   }
 }
 
+#let break_page_after_chapters() = body => {
+  show heading.where(level: 1): it => {
+    // Start a new page unless this is the first chapter
+    locate(loc => {
+      let h1_before = query(heading.where(level: 1).before(loc), loc)
+      if h1_before.len() != 1 {
+        pagebreak()
+      }
+    })
+    it
+  }
+  body
+}
 
 /* Headings of various levels */
 // Templates support up to three levels of headings,
@@ -97,17 +110,6 @@
     }
     #counter("h2").update(0)
     #counter("Figure").update(0)
-
-    // Start a new page unless this is the first chapter
-    #locate(loc => {
-      let h1_before = query(
-        heading.where(level: 1).before(loc),
-      loc)
-
-      if h1_before.len() != 1 {
-        pagebreak()
-      }
-    })
 
     // Font size and white space
     #set text(20pt, weight: "bold")
