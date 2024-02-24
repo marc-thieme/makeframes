@@ -1,92 +1,6 @@
-// Template from: https://github.com/BeitianMa/typst-lecture-notes
+// Template design from: https://github.com/BeitianMa/typst-lecture-notes
 
-// TODO: 1. Make sure no page breaks between the blocks and their titles
-// TODO: 2. Write show rule for references so their counter and class show up
-
-/* Blocks */
-// Pls add or remove elements in this array first,
-// if you want to add or remove the class of blocks
-#let classes = ("Definition", "Lemma", "Theorem", "Corollary")
-#let h1_marker = counter("h1")
-#let h2_marker = counter("h2")
-
-#let note_block(
-  body,
-  title: "",
-  class: "Block",
-  fill: rgb("#FFFFFF"),
-  stroke: rgb("#000000"),
-) = {
-  let block_counter = counter(class)
-
-  let body = locate(
-    loc => {
-      // Returns the serial number of the current block
-      // The format is just like "Definition 1.3.1"
-      let serial_num = (
-        h1_marker.at(loc).last(),
-        h2_marker.at(loc).last(),
-        block_counter.at(loc).last() + 1,
-      )
-      .map(str)
-      .join(".")
-
-      let serial_label = label(class + " " + serial_num)
-
-      v(2pt)
-
-      [#title #h(1fr) *#class #serial_num #serial_label #block_counter.step()*]
-
-      v(-8pt)
-
-      block(fill: fill, width: 100%, inset: 8pt, radius: 4pt, stroke: stroke, body)
-    },
-  )
-  // Wrapping in figure makes element labellable at the price of disallowing page breaks in between
-  // TODO: Use correct supplement name and use figure kind for counter
-  figure(body)
-}
-
-/* Figures */
-// The numbering policy is as before, and the default display is centered
-#let notefig(path, width: 100%) = {
-  let figure_counter = counter("Figure")
-
-  locate(
-    loc => {
-      let serial_num = (
-        h1_marker.at(loc).last(),
-        h2_marker.at(loc).last(),
-        figure_counter.at(loc).last() + 1,
-      )
-      .map(str)
-      .join(".")
-
-      let serial_label = label("Figure" + " " + serial_num)
-
-      block(width: 100%, inset: 8pt, align(center)[#image(path, width: width)])
-
-      set align(center)
-      text(
-        12pt,
-        weight: "bold",
-      )[Figure #serial_num #serial_label #figure_counter.step()]
-    },
-  )
-}
-
-/* References of blocks */
-// Automatically jump to the corresponding blocks
-// The form of the input should look something like "Definition 1.3.1"
-#let refto(class_with_serial_num, alias: none) = {
-  if alias == none {
-    link(label(class_with_serial_num), [*#class_with_serial_num*])
-  } else {
-    link(label(class_with_serial_num), [*#alias*])
-  }
-}
-
-#let break_page_after_chapters() = body => {
+#let break-page-after-chapters() = body => {
   show heading.where(level: 1): it => {
     // Start a new page unless this is the first chapter
     locate(loc => {
@@ -100,145 +14,140 @@
   body
 }
 
-/* Headings of various levels */
-// Templates support up to three levels of headings,
-// and notes with more than three headings are usually mess :)
-#let set_headings(body) = {
-  set heading(numbering: "1.1.1")
+#let note-page
 
-  // 1st level heading
-  show heading.where(level: 1): it => [
-    // Under each new h1, reset the sequence number of the blocks
-    #for class in classes {
-      counter(class).update(0)
-    }
-    #counter("h2").update(0)
-    #counter("Figure").update(0)
+#{
+  /* Headings of various levels */
+  // Templates support up to three levels of headings,
+  // and notes with more than three headings are usually mess :)
+  let set-headings(body) = {
+    set heading(numbering: "1.1.1")
 
-    // Font size and white space
-    #set text(20pt, weight: "bold")
-    #block[Chapter #counter(heading).display(): #it.body]
-    #v(25pt)
-    #h1_marker.step()
-  ]
+    // 1st level heading
+    show heading.where(level: 1): it => [
+      // Font size and white space
+      #block[Chapter #counter(heading).display(): #it.body]
+      #v(14pt)
+    ]
 
-  // 2st level heading
-  show heading.where(level: 2): it => [
-    #set text(17pt, weight: "bold")
-    #block[#it]
-    #h2_marker.step()
-  ]
+    // 2st level heading
+    show heading.where(level: 2): it => [
+      #set text(14pt, weight: "bold")
+      #block[#it]
+    ]
 
-  // 3st level heading
-  show heading.where(level: 3): it => [
-    #set text(14pt, weight: "bold")
-    #block[#it]
-  ]
+    // 3st level heading
+    show heading.where(level: 3): it => [
+      #set text(12pt, weight: "bold")
+      #block[#it]
+    ]
 
-  body
-}
-
-/* Cover page */
-// Create a note cover with the course name, author, and time
-// Modify parameters here if you want to add or modify information item
-#let cover_page(title, author, professor, creater, time, abstract) = {
-  set page(paper: "us-letter", header: align(right)[
-    #smallcaps[#title]
-    #v(-6pt)
-    #line(length: 40%)
-  ], footer: locate(loc => {
-    align(center)[#loc.page()]
-  }))
-
-  block(height: 25%, fill: none)
-  align(center, text(18pt)[*Lecture Notes: #title*])
-  align(center, text(12pt)[*By #author*])
-  align(center, text(11pt)[_Taught by Prof. #professor _])
-
-  v(7.5%)
-  abstract
-
-  block(height: 35%, fill: none)
-  align(center, [*#creater, #time*])
-}
-
-/* Outline page */
-// Defualt depth is 2
-#let outline_page(title) = {
-  set page(
-    paper: "us-letter",
-    // Headers are set to right- and left-justified
-    // on odd and even pages, respectively
-    header: locate(loc => {
-      if calc.odd(loc.page()) {
-        align(right)[
-          #smallcaps[#title]
-          #v(-6pt)
-          #line(length: 40%)
-        ]
-      } else {
-        align(left)[
-          #smallcaps[#title]
-          #v(-6pt)
-          #line(length: 40%)
-        ]
-      }
-    }),
-    footer: locate(loc => {
-      align(center)[#loc.page()]
-    }),
-  )
-
-  show outline.entry.where(level: 1): it => {
-    v(12pt, weak: true)
-    strong("§ " + it)
+    body
   }
 
-  align(center, text(18pt, weight: "bold")[#title])
-  v(15pt)
-  outline(title: none, depth: 2, indent: auto)
-}
-
-/* Body text page */
-// Format the headers and headings of the body
-#let body_page(title, body) = {
-  set page(
-    paper: "us-letter",
-    header: locate(
-      loc => {
-        let h1_before = query(heading.where(level: 1).before(loc), loc)
-
-        let h1_after = query(heading.where(level: 1).after(loc), loc)
-
-        // Right- and left-justified on odd and even pages, respectively
-        // Automatically matches the nearest level 1 title
-        // let nearest_heading = (h1_before, h1_after, (heading(""))).find(arr => arr != ()).body
-        let headings = (..h1_before, ..h1_after)
-        if headings.len() != 0 {
-          let align_side = if calc.odd(loc.page()) { right } else { left }
-          align(align_side)[_ #headings.first().body _ #v(-6pt) #line(length: 40%)]
-        }
-      },
-    ),
-    footer: locate(loc => {
+  /* Cover page */
+  // Create a note cover with the course name, author, and time
+  // Modify parameters here if you want to add or modify information item
+  let cover-page(title, author, professor, creater, time, abstract) = {
+    set page(paper: "us-letter", header: align(right)[
+      #smallcaps[#title]
+      #v(-6pt)
+      #line(length: 40%)
+    ], footer: locate(loc => {
       align(center)[#loc.page()]
-    }),
-  )
+    }))
 
-  set_headings(body)
-}
+    block(height: 25%, fill: none)
+    align(center, text(18pt)[*Lecture Notes: #title*])
+    align(center, text(12pt)[*By #author*])
+    align(center, text(11pt)[_Taught by Prof. #professor _])
 
-/* All pages */
-// Organize all types of pages
-// If you want to add or modify other global Settings, please do so here
-#let note_page(title, author, professor, creater, time, abstract, body) = {
-  set document(title: title, author: author)
-  set par(justify: true)
-  show math.equation.where(block: true) :it=>block(width: 100%, align(center, it))
+    v(7.5%)
+    abstract
 
-  cover_page(title, author, professor, creater, time, abstract)
+    block(height: 35%, fill: none)
+    align(center, [*#creater, #time*])
+  }
 
-  outline_page("Outline")
+  /* Outline page */
+  // Defualt depth is 2
+  let outline-page(title) = {
+    set page(
+      paper: "us-letter",
+      // Headers are set to right- and left-justified
+      // on odd and even pages, respectively
+      header: locate(loc => {
+        if calc.odd(loc.page()) {
+          align(right)[
+            #smallcaps[#title]
+            #v(-6pt)
+            #line(length: 40%)
+          ]
+        } else {
+          align(left)[
+            #smallcaps[#title]
+            #v(-6pt)
+            #line(length: 40%)
+          ]
+        }
+      }),
+      footer: locate(loc => {
+        align(center)[#loc.page()]
+      }),
+    )
 
-  body_page(title, body)
+    show outline.entry.where(level: 1): it => {
+      v(12pt, weak: true)
+      strong("§ " + it)
+    }
+
+    align(center, text(18pt, weight: "bold")[#title])
+    v(15pt)
+    outline(title: none, depth: 2, indent: auto)
+  }
+
+  /* Body text page */
+  // Format the headers and headings of the body
+  let body-page(title, body) = {
+    set page(
+      paper: "us-letter",
+      header: locate(
+        loc => {
+          let h1_before = query(heading.where(level: 1).before(loc), loc)
+
+          let h1_after = query(heading.where(level: 1).after(loc), loc)
+
+          // Right- and left-justified on odd and even pages, respectively
+          // Automatically matches the nearest level 1 title
+          // let nearest_heading = (h1_before, h1_after, (heading(""))).find(arr => arr != ()).body
+          let headings = (..h1_before, ..h1_after)
+          if headings.len() != 0 {
+            let align_side = if calc.odd(loc.page()) { right } else { left }
+            align(align_side)[_ #headings.first().body _ #v(-6pt) #line(length: 40%)]
+          }
+        },
+      ),
+      footer: locate(loc => {
+        align(center)[#loc.page()]
+      }),
+    )
+
+    set-headings(body)
+  }
+
+  /* All pages */
+  // Organize all types of pages
+  // If you want to add or modify other global Settings, please do so here
+  let _note-page(title, author, professor, creater, time, abstract, body) = {
+    set document(title: title, author: author)
+    set par(justify: true)
+    show math.equation.where(block: true) :it=>block(width: 100%, align(center, it))
+
+    cover-page(title, author, professor, creater, time, abstract)
+
+    outline-page("Outline")
+
+    body-page(title, body)
+  }
+  note-page = _note-page
 }
