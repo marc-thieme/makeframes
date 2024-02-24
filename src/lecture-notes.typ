@@ -7,8 +7,9 @@
   definition,
   example,
   remark,
-  proof,
   proposition,
+  notation,
+  proof,
 ) = {
   let theorem-color = red.lighten(70%)
   let kind-color-map = (
@@ -19,6 +20,7 @@
     "example": gray.lighten(60%),
     "corollary": theorem-color.rotate(150deg),
     "proposition": yellow.lighten(20%),
+    "notation": theorem-color.rotate(280deg)
   )
 
   import "../external/lemmify/src/export-lib.typ" as lemmify
@@ -67,10 +69,17 @@
       tags: (exams: (), color: white),
       lang: "de",
     )
+
+    theorems.notation = lemmify.theorem-kind("Notation", group: "LECTURE-NOTES-CUSTOM-GROUP",
+      style: colored_styling_exams,
+      tags: (exams: (), color: white),
+    )
+
     for (kind, theorem) in theorems.pairs() {
       let colored-theorem = theorem.with(color: kind-color-map.at(kind, default: white))
       theorems.insert(kind, colored-theorem)
     }
+
     return (..theorems, theorem-rules: theorem-rules)
   }
   let (..theorems-and-proof, theorem-rules) = init-theorem-kinds()
