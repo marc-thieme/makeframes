@@ -19,8 +19,8 @@
     "remark": theorem-color.rotate(30deg).saturate(5%),
     "example": gray.lighten(60%),
     "corollary": theorem-color.rotate(150deg),
-    "proposition": yellow.lighten(20%),
-    "notation": theorem-color.rotate(280deg)
+    "proposition": theorem-color.rotate(60deg),
+    "notation": theorem-color.rotate(280deg),
   )
 
   import "../external/lemmify/src/export-lib.typ" as lemmify
@@ -70,7 +70,9 @@
       lang: "de",
     )
 
-    theorems.notation = lemmify.theorem-kind("Notation", group: "LECTURE-NOTES-CUSTOM-GROUP",
+    theorems.notation = lemmify.theorem-kind(
+      "Notation",
+      group: "LECTURE-NOTES-CUSTOM-GROUP",
       style: colored_styling_exams,
       tags: (exams: (), color: white),
     )
