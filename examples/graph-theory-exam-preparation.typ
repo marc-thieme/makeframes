@@ -1,12 +1,12 @@
-#import "/template.typ": *
+#import "../template.typ": *
 
 #show: project.with("Graph Theory", "Prof. Dr. Martin", "Marc Thieme")
 
-#let w17(..tasks) = [WS17|#(tasks.pos().map(str).join(","))]
-#let w19(..tasks) = [WS19|#(tasks.pos().map(str).join(","))]
-#let s20(..tasks) = [SS20|#(tasks.pos().map(str).join(","))]
-#let w21(..tasks) = [WS21|#(tasks.pos().map(str).join(","))]
-#let s22(..tasks) = [SS22|#(tasks.pos().map(str).join(","))]
+#let w17(..tasks) = [WS17:#(tasks.pos().map(str).join(","))]
+#let w19(..tasks) = [WS19:#(tasks.pos().map(str).join(","))]
+#let s20(..tasks) = [SS20:#(tasks.pos().map(str).join(","))]
+#let w21(..tasks) = [WS21:#(tasks.pos().map(str).join(","))]
+#let s22(..tasks) = [SS22:#(tasks.pos().map(str).join(","))]
 
 // Summary for exam preparation
 
@@ -36,6 +36,12 @@
 ]
 #lemma(name: "Extremal number for cycles", exams: w21(5))[
   Every graph $G$ with $|E(G)| > |G|$ contains a cycle.
+]
+#remark(name: "jhkdsfl")[
+  jskh
+]
+#corollary(name: "gdf")[
+  gfhdghajjk
 ]
 #theorem(
   name: "Dirac",
