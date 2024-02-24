@@ -37,27 +37,21 @@
 #lemma(name: "Extremal number for cycles", exams: w21(5))[
   Every graph $G$ with $|E(G)| > |G|$ contains a cycle.
 ]
-#remark(name: "jhkdsfl")[
-  jskh
-]
-#corollary(name: "gdf")[
-  gfhdghajjk
-]
-#theorem(
+#proposition(
   name: "Dirac",
   exams: w17(1, 7),
 )[
   Every graph with $n>=3$ vertices and minimum degree at least $n/2$ has a
   Hamiltonian cycle.
 ]
-#theorem(name: "Tutte's", exams: w17(1))[
+#corollary(name: "Tutte's", exams: w17(1))[
   A graph $G$ has a perfect matching
   $q(G - S) <= |S| quad forall S subset.eq V$\
   where $q(G-S)$ denotes the number of odd components of $G - S$
 ]
 
 = Theorems from other fields
-#theorem(
+#remark(
   name: "Pigeonhole Principle",
   exams: w17(6),
 )[
@@ -91,6 +85,9 @@
 )[
   Let $k in NN$. We say that $G$ is _k-list-colorable_ if $G$ is _L-list-colorable_
   for each list $L$ with $|L(v)| = k quad forall_(v in V)$.
+]
+#notation(name: "Vertex and Edge sets")[
+  We use $E(G)$ do denote its edge set and $V(G)$ to denote its vertex set.
 ]
 #definition(
   name: "Eulerian tour",
