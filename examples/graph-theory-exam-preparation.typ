@@ -1,4 +1,4 @@
-#import "../template.typ": *
+#import "../lecture-notes.typ": *
 
 #show: project.with("Graph Theory", "Prof. Dr. Martin", "Marc Thieme")
 

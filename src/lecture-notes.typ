@@ -1,4 +1,4 @@
-#import "typst-lecture-notes.typ": break-page-after-chapters
+#import "styling.typ": break-page-after-chapters
 #let project
 #let (
   theorem,
@@ -76,7 +76,7 @@
   let (..theorems-and-proof, theorem-rules) = init-theorem-kinds()
 
   let _project(title, professor, author, body) = {
-    import "typst-lecture-notes.typ" as styling
+    import "styling.typ" as styling
     let time = datetime.today().display("[day].[month].[year]")
     let abstract = []
 
