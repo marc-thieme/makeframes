@@ -1,40 +1,84 @@
-#import "typst-lecture-notes.typ" as template
-#import template: break_page_after_chapters
+#import "typst-lecture-notes.typ": break-page-after-chapters
+#let project
+#let (theorem, corollary, lemma, definition, example, remark, proof, proposition) = {
+  let theorem-color = red.lighten(70%)
+  let kind-color-map = (
+    "theorem": theorem-color,
+    "lemma": theorem-color.rotate(200deg).lighten(30%),
+    "definition": theorem-color.rotate(95deg),
+    "remark": theorem-color.rotate(30deg).saturate(5%),
+    "example": gray.lighten(60%),
+    "corollary": theorem-color.rotate(150deg),
+    "proposition": yellow.lighten(20%)
+  )
 
-#let definition = template.note_block.with(class: "Definition", fill: rgb("#EDF1D6"), stroke: rgb("#609966"))
+  import "../external/lemmify/src/export-lib.typ" as lemmify
 
-#let theorem = template.note_block.with(class: "Theorem", fill: rgb("#FEF2F4"), stroke: rgb("#EE6983"))
+  let colored_styling_exams(thm) = {
+    let params = lemmify.get-theorem-parameters(thm)
+    let number = (params.numbering)(thm, false)
+    let color = params.tags.color
+    let exams = params.tags.at("exams", default: ())
 
-#let lemma = template.note_block.with(class: "Lemma", fill: rgb("#FFF4E0"), stroke: rgb("#F4B183"))
+    let namebox
+    if params.name != none {
+      namebox = box(inset: .5em, fill: color, stroke: color, params.name)
+      namebox
+    }
 
-#let corollary = template.note_block.with(class: "Corollary", fill: rgb("#F7FBFC"), stroke: rgb("#769FCD"))
+    if type(exams) != array {
+      exams = (exams,)
+    }
+    for exam in exams {
+      // The " " to have text in original font size so the size of the box is correct
+      box(inset: .5em, stroke: color, " " + text(size: 9pt, exam))
+    }
+    h(1fr)
+    box(inset: .5em)[#params.kind-name #number]
 
-#let note = template.note_block.with(class: "Note", fill: rgb("#ef8064"), stroke: rgb("#8c4a39"))
+    v(0pt, weak: true)
+    block(width: 100%, inset: 1em, stroke: color + 1pt, params.body)
+  }
 
-#let notation = template.note_block.with(class: "Notation", fill: rgb("#edcd82"), stroke: rgb("#966901"))
+  let proof_styling(thm) = {
+    let params = lemmify.get-theorem-parameters(thm)
+    emph[Proof.]
+    [ ] + params.body
+    h(1fr)
+    box(scale(160%, origin: bottom + right, sym.square.stroked))
+  }
 
-#let approach = template.note_block.with(class: "Approach", fill: rgb("e2c271"), stroke: rgb("635021"))
+  let init-theorem-kinds(lang: "de") = {
+    let (..theorems, theorem-rules) = lemmify.default-theorems(
+      style: colored_styling_exams,
+      proof-style: proof_styling,
+      tags: (exams: (), color: white),
+      lang: "de",
+    )
+    for (kind, theorem) in theorems.pairs() {
+      let colored-theorem = theorem.with(color: kind-color-map.at(kind, default: white))
+      theorems.insert(kind, colored-theorem)
+    }
+    return (..theorems, theorem-rules: theorem-rules)
+  }
+  let  (..theorems-and-proof, theorem-rules) = init-theorem-kinds()
 
-#let task = template.note_block.with(class: "Exersice", fill: gray.lighten(60%), stroke: gray.darken(60%))
-)
+  let _project(title, professor, author, body) = {
+    import "typst-lecture-notes.typ" as styling
+    let time = datetime.today().display("[day].[month].[year]")
+    let abstract = []
 
-#let proof(body) = block(spacing: 11.5pt, {
-  emph[Proof.]
-  [ ] + body
-  h(1fr)
-  box(scale(160%, origin: bottom + right, sym.square.stroked))
-})
+    show table: set align(center)
+    set table(inset: 3mm)
 
-#let project(title, professor, author, body) = {
-  let time = datetime.today().display("[day].[month].[year]")
-  let abstract = []
+    // Insert the 0-space to avoid infinit recursion
+    show regex("\biff\b"): (body) => [_if#h(0pt)f_]
+    show regex("\bAssume\b"): (body) => [_Assum#h(0pt)e_]
 
-  show table: set align(center)
-  set table(inset: 3mm)
+    show: theorem-rules
 
-  // Insert the 0-space to avoid infinit recursion
-  show regex("\biff\b"): (body) => [_if#h(0pt)f_]
-  show regex("\bAssume\b"): (body) => [_Assum#h(0pt)e_]
-
-  template.note_page(title, author, professor, author, time, abstract, body)
+    styling.note-page(title, author, professor, author, time, abstract, body)
+  }
+  project = _project
+  theorems-and-proof
 }
