@@ -19,7 +19,6 @@
     breakable: true,
     {
       let params = lemmify.get-theorem-parameters(thm)
-      let number = (params.numbering)(thm, false)
       let color = params.tags.color
       let exams = params.tags.at("exams", default: ())
 
@@ -37,7 +36,11 @@
         box(inset: .5em, stroke: color, " " + text(size: 9pt, exam))
       }
       h(1fr)
-      box(inset: .5em)[#params.kind-name #number]
+      let header = params.kind-name + if params.numbering != none {
+        [ ]
+        lemmify.display-numbered(thm)
+      }
+      box(inset: .5em, header)
 
       v(0pt, weak: true)
       block(width: 100%, inset: 1em, stroke: color + 1pt, params.body)
