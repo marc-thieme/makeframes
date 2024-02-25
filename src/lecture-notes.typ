@@ -1,26 +1,16 @@
 #import "styling.typ": break-page-after-chapters
 #let project
-#let (
-  theorem,
-  corollary,
-  lemma,
-  definition,
-  example,
-  remark,
-  proposition,
-  notation,
-  proof,
-) = {
+#let all-theorems = {
   let theorem-color = red.lighten(70%)
   let kind-color-map = (
-    "theorem": theorem-color,
-    "lemma": theorem-color.rotate(200deg).lighten(30%),
-    "definition": theorem-color.rotate(95deg),
-    "remark": theorem-color.rotate(30deg).saturate(5%),
-    "example": gray.lighten(60%),
-    "corollary": theorem-color.rotate(150deg),
-    "proposition": theorem-color.rotate(60deg),
-    "notation": theorem-color.rotate(280deg),
+    theorem: theorem-color,
+    lemma: theorem-color.rotate(200deg).lighten(30%),
+    definition: theorem-color.rotate(95deg),
+    remark: theorem-color.rotate(30deg).saturate(5%),
+    example: gray.lighten(60%),
+    corollary: theorem-color.rotate(150deg),
+    proposition: theorem-color.rotate(60deg),
+    notation: theorem-color.rotate(280deg),
   )
 
   import "../external/lemmify/src/export-lib.typ" as lemmify
@@ -105,3 +95,15 @@
   project = _project
   theorems-and-proof
 }
+
+#let (
+  theorem,
+  corollary,
+  lemma,
+  definition,
+  example,
+  remark,
+  proposition,
+  notation,
+  proof,
+) = all-theorems
