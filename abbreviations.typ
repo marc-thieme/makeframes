@@ -4,8 +4,7 @@
   for (kind, thm) in lib.all-theorems {
     (
       (kind): (name, ..exams, body) => {
-        assert.eq(exams.named(), (:))
-        thm(name: name, exams: exams.pos(), body)
+        thm(name: name, exams: exams.pos(), ..exams.named(), body)
       },
     )
   }
