@@ -7,6 +7,9 @@
         thm(name: name, exams: exams.pos(), ..exams.named(), body)
       },
     )
+    (
+      proof: (..exams, body) => lib.proof(exams: exams, body)
+    )
   }
 }
 #let (

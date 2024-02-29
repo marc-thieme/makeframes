@@ -33,7 +33,7 @@
       }
       for exam in exams {
         // The " " to have text in original font size so the size of the box is correct
-        box(inset: .5em, stroke: color, " " + text(size: 9pt, exam))
+        box(inset: .5em, stroke: color, " " + text(size: 0.9em, exam))
       }
       h(1fr)
       let header = params.kind-name + if params.numbering != none {
@@ -56,7 +56,9 @@
   })
 
   let init-theorem-kinds(lang: "de") = {
+    let mygroup = "LECTURE-NOTES-CUSTOM-GROUP"
     let (..theorems, theorem-rules) = lemmify.default-theorems(
+      group: mygroup,
       style: colored_styling_exams,
       proof-style: proof_styling,
       tags: (exams: (), color: white),
@@ -65,7 +67,7 @@
 
     theorems.notation = lemmify.theorem-kind(
       "Notation",
-      group: "LECTURE-NOTES-CUSTOM-GROUP",
+      group: mygroup,
       style: colored_styling_exams,
       tags: (exams: (), color: white),
     )
