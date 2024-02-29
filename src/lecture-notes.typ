@@ -16,7 +16,7 @@
   import "../external/lemmify/src/export-lib.typ" as lemmify
 
   let colored_styling_exams(thm) = block(
-    breakable: true,
+    breakable: false,
     {
       let params = lemmify.get-theorem-parameters(thm)
       let color = params.tags.color
