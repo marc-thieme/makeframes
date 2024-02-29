@@ -3,12 +3,15 @@
 
   for (kind, thm) in lib.all-theorems {
     (
-      (kind): (name, ..exams, body) => {
-        thm(name: name, exams: exams.pos(), ..exams.named(), body)
+      (kind): (body-or-name, ..exams) => {
+        let named-args = exams.named()
+        if exams.pos() == () {
+          thm(exams: exams.pos(), ..named-args, body-or-name)
+        } else {
+          let (..exams, body) = exams.pos()
+          thm(name: body-or-name, exams: exams, ..named-args, body)
+        }
       },
-    )
-    (
-      proof: (..exams, body) => lib.proof(exams: exams, body)
     )
   }
 }
