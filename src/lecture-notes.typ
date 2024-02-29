@@ -33,7 +33,7 @@
       }
       for exam in exams {
         // The " " to have text in original font size so the size of the box is correct
-        box(inset: .5em, stroke: color, " " + text(size: 0.9em, exam))
+        box(inset: .6em, stroke: color, " " + text(size: 0.9em, exam))
       }
       h(1fr)
       let header = params.kind-name + if params.numbering != none {
@@ -43,7 +43,7 @@
       box(inset: .5em, header)
 
       v(0pt, weak: true)
-      block(width: 100%, inset: 1em, stroke: color + 1pt, params.body)
+      block(width: 100%, inset: 0.8em, stroke: color + 0.13em, params.body)
     },
   )
 
@@ -87,7 +87,7 @@
     let abstract = []
 
     show table: set align(center)
-    set table(inset: 3mm)
+    set table(inset: 0.7em)
 
     // Insert the 0-space to avoid infinit recursion
     show regex("\biff\b"): (body) => [_if#h(0pt)f_]

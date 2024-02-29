@@ -25,20 +25,21 @@
 
     // 1st level heading
     show heading.where(level: 1): it => [
+      #set text(1.3em, weight: "bold")
       // Font size and white space
       #block[Chapter #counter(heading).display(): #it.body]
-      #v(14pt)
+      #v(0.8em)
     ]
 
     // 2st level heading
     show heading.where(level: 2): it => [
-      #set text(14pt, weight: "bold")
+      #set text(1.2em, weight: "bold")
       #block[#it]
     ]
 
     // 3st level heading
     show heading.where(level: 3): it => [
-      #set text(12pt, weight: "bold")
+      #set text(1.1em, weight: "bold")
       #block[#it]
     ]
 
