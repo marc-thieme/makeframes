@@ -1,5 +1,16 @@
 #import "../lecture-notes.typ": *
 
+#let (theorem, definition, proposition, remark, lemma, corollary, example, notation) = init-theorems(
+  theorem: "Theorem",
+  definition: "Definition",
+  proposition: "Proposition",
+  remark: "Remark",
+  lemma: "Lemma",
+  corollary: "Corollary",
+  notation: "Notation",
+  example: "Example",
+)
+
 #show: project.with("Graph Theory", "Prof. Dr. Martin", "Marc Thieme")
 
 #let w17(..tasks) = [WS17:#(tasks.pos().map(str).join(","))]
@@ -12,39 +23,39 @@
 
 = Theorems
 #theorem(
-  name: "Hall",
-  exams: w19(4),
+  "Hall",
+  w19(4),
 )[
   Let $G$ be a bipartite graph with partite sets $A$ and $B$. Then $G$ has a
   matching containing all vertices of $A$ if and only if $|N(S)|>=|S|$ for all $S subset.eq A$.
 ]
 == Hlel
 #theorem(
-  name: "König",
-  exams: (w19(5), w21(2)),
+  "König",
+  w19(5), w21(2),
 )[
   Let $G$ be bipartite. The size of the largest matching is the same as the size
   of a smallest vertex cover.
 ]
 === Hlel
 #theorem(
-  name: "Min degree path",
-  exams: s20(2),
+  "Min degree path",
+  s20(2),
 )[
   If a graph $G$ has minimum degree $delta(G) >= 2$, then $G$ has a path of length
   $delta(G)$ and a cycle with at least $delta(G) + 1$ vertices.
 ]
-#lemma(name: "Extremal number for cycles", exams: w21(5))[
+#lemma("Extremal number for cycles", w21(5))[
   Every graph $G$ with $|E(G)| > |G|$ contains a cycle.
 ]
 #proposition(
-  name: "Dirac",
-  exams: w17(1, 7),
+  "Dirac",
+  w17(1, 7),
 )[
   Every graph with $n>=3$ vertices and minimum degree at least $n/2$ has a
   Hamiltonian cycle.
 ]
-#corollary(name: "Tutte's", exams: w17(1))[
+#corollary("Tutte's", w17(1))[
   A graph $G$ has a perfect matching
   $q(G - S) <= |S| quad forall S subset.eq V$\
   where $q(G-S)$ denotes the number of odd components of $G - S$
@@ -52,63 +63,65 @@
 
 = Theorems from other fields
 #remark(
-  name: "Pigeonhole Principle",
-  exams: w17(6),
+  "Pigeonhole Principle",
+  w17(6),
 )[
   When $m$ items are put into $n$ containers with $m>n$, then at least one
   container receives more than one item.
 ]
-#theorem(name: "Probability", exams: s20(6))[
+#theorem("Probability", s20(6))[
   $
     PP(A sect B) = PP(A) + PP(B) - PP(A union B) = PP(A|B) dot PP(B)
   $
 ]
-#theorem(name: "Linearity of expectation", exams: w21(7))[
+#theorem("Linearity of expectation", w21(7))[
   $E[alpha X + Y] = alpha E[X] + E[Y]$
 ]
-#theorem(name: "Max of random variables", exams: w19(6))[
+#theorem("Max of random variables", w19(6))[
   $PP(max{X, Y} < c) = PP(X < c, Y < c)$
 ]
 
 = Definitions
 #definition(
-  name: "L-list-colorable",
-  exams: w17(3),
+  "L-list-colorable",
+  w17(3),
 )[
   Let $L(v) subset.eq NN$ be a list of colors for each vertex $v in V$. We say
   that $G$ is _L-list-colorable_ if there is a coloring $c : V -> NN$ such that
   $c(v) in L(v)$ for each $v in V$ and adjacent vertices receive different colors.
 ]
 #definition(
-  name: "k-list-colorable",
-  exams: w17(3),
+  "k-list-colorable",
+  w17(3),
 )[
   Let $k in NN$. We say that $G$ is _k-list-colorable_ if $G$ is _L-list-colorable_
   for each list $L$ with $|L(v)| = k quad forall_(v in V)$.
 ]
-#notation(name: "Vertex and Edge sets")[
+#notation(
+  "Vertex and Edge sets",
+)[
   We use $E(G)$ do denote its edge set and $V(G)$ to denote its vertex set.
 ]
 #definition(
-  name: "Eulerian tour",
-  exams: w17(7),
+  "Eulerian tour",
+  w17(7),
 )[
   An _eulerian_ tour is a closed walk that traverses every edge exactly once.
 ]
-#definition(name: "Eulerian", exams: w17(7))[
+#definition("Eulerian", w17(7))[
   A graph is _eulerian_ if it contains an eulerian tour.
 ]
 #definition(
-  name: "Connectivity",
-  exams: s20(4),
+  "Connectivity",
+  s20(4),
 )[
   The maximum $k$ for which $G$ is connected is called its connectivity $kappa(G)$.
 ]
 
 = Aufgaben
 #example(
-  name: "Chromatic Number, Planar Graph with girth 6",
-  exams: w19(3),
+  "Chromatic Number, Planar Graph with girth 6",
+  w19(3),
 )[
   Let G be a planar graph of girth at least 6. Prove that the chromatic number of
   G is at most three
@@ -138,8 +151,8 @@
 ]
 
 #example(
-  name: "Fan Lemma",
-  exams: s20(2),
+  "Fan Lemma",
+  s20(2),
 )[
   One particular consequence of Menger’s theorem is the fan lemma: If k ≥ 1 is an
   integer and G is a k-connected graph, then for every U ⊂ V (G) with |U | = k and
