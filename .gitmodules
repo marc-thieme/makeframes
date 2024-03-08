@@ -1,3 +1,0 @@
-[submodule "external/lemmify"]
-	path = external/lemmify
-	url = https://github.com/marc-thieme/lemmify.git
