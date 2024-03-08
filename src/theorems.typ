@@ -42,7 +42,7 @@ base-color.rotate(280deg)
   if colors == auto {
     colors = default-colors
   }
-  assert(theorems.named() == (:) or theorems.pos() == (), "You can provide either named or positional arguments but not both!")
+  assert(theorems.named() == (:) or theorems.pos() == (), message: "You can provide either named or positional arguments but not both!")
   if theorems.pos() == () {
     for (theo, color) in theorems.named().pairs().zip(colors) {
       let (theorem, supplement) = theo
@@ -50,7 +50,7 @@ base-color.rotate(280deg)
     }
   } else {
     for (supplement, color) in theorems.pos().zip(colors) {
-      theorem-factory(supplement, color, kind: kind)
+      ( theorem-factory(supplement, color, kind: kind), )
     }
   }
 }
