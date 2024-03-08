@@ -1,53 +1,7 @@
 #import "styling.typ": break-page-after-chapters
-#let project
-#let all-theorems = {
-  let theorem-color = red.lighten(70%)
-  let kind-color-map = (
-    theorem: theorem-color,
-    lemma: theorem-color.rotate(200deg).lighten(30%),
-    definition: theorem-color.rotate(95deg),
-    remark: theorem-color.rotate(30deg).saturate(5%),
-    example: gray.lighten(60%),
-    corollary: theorem-color.rotate(150deg),
-    proposition: theorem-color.rotate(60deg),
-    notation: theorem-color.rotate(280deg),
-  )
+#import "theorems.typ" : init-theorems, theorem-factory
 
-  import "../external/lemmify/src/export-lib.typ" as lemmify
-
-  let colored_styling_exams(thm) = block(
-    breakable: false,
-    {
-      let params = lemmify.get-theorem-parameters(thm)
-      let color = params.tags.color
-      let exams = params.tags.at("exams", default: ())
-
-      let namebox
-      if params.name != none {
-        namebox = box(inset: .5em, fill: color, stroke: color, params.name)
-        namebox
-      }
-
-      if type(exams) != array {
-        exams = (exams,)
-      }
-      for exam in exams {
-        // The " " to have text in original font size so the size of the box is correct
-        box(inset: .6em, stroke: color, " " + text(size: 0.9em, exam))
-      }
-      h(1fr)
-      let header = params.kind-name + if params.numbering != none {
-        [ ]
-        lemmify.display-numbered(thm)
-      }
-      box(inset: .5em, header)
-
-      v(0pt, weak: true)
-      block(width: 100%, inset: 0.8em, stroke: color + 0.13em, params.body)
-    },
-  )
-
-  let proof_styling(thm) = block(breakable: true, {
+#let proof_styling(thm) = block(breakable: true, {
     let params = lemmify.get-theorem-parameters(thm)
     emph[Proof.]
     [ ] + params.body
@@ -55,60 +9,24 @@
     box(scale(160%, origin: bottom + right, sym.square.stroked))
   })
 
-  let init-theorem-kinds(lang: "de") = {
-    let mygroup = "LECTURE-NOTES-CUSTOM-GROUP"
-    let (..theorems, theorem-rules) = lemmify.default-theorems(
-      group: mygroup,
-      style: colored_styling_exams,
-      proof-style: proof_styling,
-      tags: (exams: (), color: white),
-      lang: "de",
-    )
+#let proof(body) = block(breakable: true, {
+  emph[Proof.]
+  [ ] + body
+  h(1fr)
+  box(scale(160%, origin: bottom + right, sym.square.stroked))
+})
 
-    theorems.notation = lemmify.theorem-kind(
-      "Notation",
-      group: mygroup,
-      style: colored_styling_exams,
-      tags: (exams: (), color: white),
-    )
+#let project(title, professor, author, body) = {
+  import "styling.typ" as styling
+  let time = datetime.today().display("[day].[month].[year]")
+  let abstract = []
 
-    for (kind, theorem) in theorems.pairs() {
-      let colored-theorem = theorem.with(color: kind-color-map.at(kind, default: white))
-      theorems.insert(kind, colored-theorem)
-    }
+  show table: set align(center)
+  set table(inset: 0.7em)
 
-    return (..theorems, theorem-rules: theorem-rules)
-  }
-  let (..theorems-and-proof, theorem-rules) = init-theorem-kinds()
+  // Insert the 0-space to avoid infinit recursion
+  show regex("\biff\b"): (body) => [_if#h(0pt)f_]
+  show regex("\bAssume\b"): (body) => [_Assum#h(0pt)e_]
 
-  let _project(title, professor, author, body) = {
-    import "styling.typ" as styling
-    let time = datetime.today().display("[day].[month].[year]")
-    let abstract = []
-
-    show table: set align(center)
-    set table(inset: 0.7em)
-
-    // Insert the 0-space to avoid infinit recursion
-    show regex("\biff\b"): (body) => [_if#h(0pt)f_]
-    show regex("\bAssume\b"): (body) => [_Assum#h(0pt)e_]
-
-    show: theorem-rules
-
-    styling.note-page(title, author, professor, author, time, abstract, body)
-  }
-  project = _project
-  theorems-and-proof
+  styling.note-page(title, author, professor, author, time, abstract, body)
 }
-
-#let (
-  theorem,
-  corollary,
-  lemma,
-  definition,
-  example,
-  remark,
-  proposition,
-  notation,
-  proof,
-) = all-theorems
