@@ -1,5 +1,3 @@
-#let figure-helper-kind-suffix = "__ANONYMOUS_THEOREM_FIGURE_HELPER_TO_ENABLE_LABELLING_AND_CAPTION_RULES"
-
 #let body-inset = 0.8em
 #let caption-inset = 0.5em
 
@@ -23,10 +21,13 @@
 // 1. We need to return a type figure to make it labellable
 // 2. We need to specify rules (set and show) to modify caption styling
 // 3. If we specify rules in the block which is returned, a type 'styled' is returned instead of the figure
-#let theorem-factory(supplement, color, kind: "main-theorem") = (..tags, body) => figure(kind: kind+figure-helper-kind-suffix, supplement: supplement, {
+#let theorem-factory(supplement, color, kind: "theorem") = (..tags, body) => figure(kind: kind, supplement: supplement, {
   assert(tags.named() == (:))
   tags = tags.pos()
   let (name, ..tags) = if tags == () { (none, ()) } else { tags }
+  // Offset that our outer helper figure has the same kind. We can't introduct its own kind for this helper 
+  // because the user might rely on the outer one having the kind he knows when he's writing rules for references
+  show figure: it => {it.counter.update(old => old - 1); it}
   set figure.caption(position: top)
   show figure.caption: boxy-caption.with(color, tags: tags)
   figure(caption: name, supplement: supplement, gap: 0pt, boxy-body(color, body), kind: kind)
@@ -67,7 +68,7 @@
   }
 }
 
-#let init-theorems(..theorems, kind: "main-theorem", colors: auto) = {
+#let init-theorems(..theorems, kind: "theorem", colors: auto) = {
   assert(
     theorems.named() == (:) or theorems.pos() == (),
     message: "You can provide either named or positional arguments but not both!",
