@@ -1,3 +1,5 @@
+#let figure-helper-kind-suffix = "__ANONYMOUS_THEOREM_FIGURE_HELPER_TO_ENABLE_LABELLING_AND_CAPTION_RULES"
+
 #let body-inset = 0.8em
 #let caption-inset = 0.5em
 
@@ -12,25 +14,23 @@
   box[#caption.supplement #caption.counter.display(caption.numbering)]
 }
 
-#let boxy-body(color, body) = {
-  set align(left)
-  block(width: 100%, inset: body-inset, stroke: color + 0.13em, body)
-}
+#let boxy-body(color, body) = align(
+  left,
+  block(width: 100%, inset: body-inset, stroke: color + 0.13em, body),
+)
 
-#let theorem-factory(supplement, color, kind: "main-theorem") = (..tags, body) => {
+// Wrap it in a second figure because of three facts: 
+// 1. We need to return a type figure to make it labellable
+// 2. We need to specify rules (set and show) to modify caption styling
+// 3. If we specify rules in the block which is returned, a type 'styled' is returned instead of the figure
+#let theorem-factory(supplement, color, kind: "main-theorem") = (..tags, body) => figure(kind: kind+figure-helper-kind-suffix, supplement: supplement, {
   assert(tags.named() == (:))
   tags = tags.pos()
   let (name, ..tags) = if tags == () { (none, ()) } else { tags }
   set figure.caption(position: top)
   show figure.caption: boxy-caption.with(color, tags: tags)
-  figure(
-    caption: name,
-    gap: 0pt,
-    supplement: supplement,
-    kind: kind,
-    boxy-body(color, body),
-  )
-}
+  figure(caption: name, supplement: supplement, gap: 0pt, boxy-body(color, body), kind: kind)
+})
 
 #let calculate-colors(count) = {
   let samples = for i in range(count) {
