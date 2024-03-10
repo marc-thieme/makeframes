@@ -1,6 +1,8 @@
 #import "styling.typ": break-page-after-chapters
 #import "theorems.typ" : init-theorems, theorem-factory
 
+#let zb = $dot.circle$
+
 #let proof_styling(thm) = block(breakable: true, {
     let params = lemmify.get-theorem-parameters(thm)
     emph[Proof.]
