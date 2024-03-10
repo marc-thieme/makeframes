@@ -2,6 +2,7 @@
 #import "theorems.typ" : init-theorems, theorem-factory
 
 #let zb = $dot.circle$
+#let vs = $quad <--> quad$
 
 #let proof_styling(thm) = block(breakable: true, {
     let params = lemmify.get-theorem-parameters(thm)
