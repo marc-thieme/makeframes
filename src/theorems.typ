@@ -37,7 +37,7 @@
   let samples = for i in range(count) {
     (i * 100% / count,)
   }
-  gradient.linear(..color.map.turbo.rev()).samples(..samples)
+  gradient.linear(..color.map.rainbow.rev()).samples(..samples)
   .map(color => color.lighten(80%).desaturate(50%))
 }
 
