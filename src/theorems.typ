@@ -24,7 +24,7 @@
 #let theorem-factory(supplement, color, kind: "theorem") = (..tags, body) => figure(kind: kind, supplement: supplement, {
   assert(tags.named() == (:))
   tags = tags.pos()
-  let (name, ..tags) = if tags == () { (none, ()) } else { tags }
+  let (..tags, name) = if tags == () { ((), none) } else { tags }
   // Offset that our outer helper figure has the same kind. We can't introduct its own kind for this helper 
   // because the user might rely on the outer one having the kind he knows when he's writing rules for references
   show figure: it => {it.counter.update(old => old - 1); it}
