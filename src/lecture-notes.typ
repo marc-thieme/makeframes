@@ -29,6 +29,8 @@
 
   // Insert the 0-space to avoid infinit recursion
   show regex("\biff\b"): (body) => [_if#h(0pt)f_]
+  show regex("\bgdw\b"): (body) => [_gd#h(0pt)w_]
+  show regex("\bGdw\b"): (body) => [_Gd#h(0pt)w_]
   show regex("\bAssume\b"): (body) => [_Assum#h(0pt)e_]
 
   styling.note-page(title, author, professor, author, time, abstract, body)
