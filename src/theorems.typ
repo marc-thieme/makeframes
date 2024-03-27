@@ -62,8 +62,16 @@
     type(colors) == array,
     message: "When assigning using positional arguments, you must provide the colors as an array",
   )
-  colors += calculate-colors(theorems.len() - colors.len())
-  for (supplement, color) in theorems.zip(colors) {
+
+  // panic(array.filter)
+  let auto-count = colors.filter(it => it == auto).len()
+  let next-generated-color-idx = 0
+  let generated-colors = calculate-colors(theorems.len() - colors.len() + auto-count)
+  for (supplement, color) in theorems.zip(colors + (auto,) * theorems.len()) {
+    if color == auto {
+      color = generated-colors.at(next-generated-color-idx)
+      next-generated-color-idx += 1
+    }
     (theorem-factory(supplement, color, kind: kind),)
   }
 }
