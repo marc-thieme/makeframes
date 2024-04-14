@@ -76,15 +76,25 @@
   }
 }
 
-#let init-theorems(..theorems, kind: "theorem", colors: auto) = {
-  assert(
-    theorems.named() == (:) or theorems.pos() == (),
-    message: "You can provide either named or positional arguments but not both!",
-  )
-  if theorems.pos() == () {
-    init-theorems-dictionary(theorems.named(), kind, if colors == auto { (:) } else { colors })
-  } else {
-    init-theorems-array(theorems.pos(), kind, if colors == auto { () } else { colors })
+#let init-theorems(kind, ..theorems) = {
+  assert(theorems.pos() == (), message: "Unexpected positional arguments: " + repr(theorems.pos()))
+
+  let args = for (id, args) in theorems.named() {
+    assert(type(args) == array, message: "Please provide an array for each theorem")
+    let (supplement, col, ..) = args + (auto,) // Denote color with 'auto' if omitted
+    assert(type(supplement) in (content, str))
+    assert(type(col) in (color, type(auto)), message: "Please provide a color as second arguments: "+supplement+" (was "+type(col)+")")
+    ((id, supplement, col), )
+  }
+  let auto-count = args.filter(((_, _, col)) => col == auto).len()
+  let generated-colors = calculate-colors(auto-count)
+  let next-color-idx = 0
+
+  for (id, supplement, col) in args {
+    if col == auto {
+      col = generated-colors.at(next-color-idx)
+      next-color-idx += 1
+    }
+    ((id): theorem-factory(supplement, col, kind: kind))
   }
 }
-
