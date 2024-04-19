@@ -1,16 +1,25 @@
 #let body-inset = 0.8em
 #let caption-inset = 0.5em
 
-#let boxy-caption(color, tags: (), caption) = {
+#let boxy-caption(color, tags: (), caption) = align(left, {
   set box(inset: 0.5em)
-  box(fill: color, stroke: color, caption.body)
+
+  let caption-is-set = caption.body not in ([], "")
+
+  if caption-is-set {
+    box(fill: color, stroke: color, caption.body)
+  }
 
   for tag in tags {
     box(stroke: color, " " + text(size: 0.9em, tag))
   }
-  h(1fr)
+
+  if caption-is-set {
+    h(1fr)
+  }
+
   box[#caption.supplement #caption.counter.display(caption.numbering)]
-}
+})
 
 #let boxy-body(color, body) = align(
   left,
