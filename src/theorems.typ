@@ -10,7 +10,7 @@
   }
 
   for tag in tags {
-    box(stroke: color, " " + text(size: 0.9em, tag))
+    box(stroke: color, tag)
   }
 
   if caption-is-set {
