@@ -2,8 +2,7 @@
 #let caption-inset = 0.5em
 
 #let boxy-caption(color, tags: (), caption) = align(left, {
-  set box(inset: 0.5em)
-
+  let box = box.with(inset: 0.5em)
   let caption-is-set = caption.body not in ([], "")
 
   if caption-is-set {
