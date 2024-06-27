@@ -34,3 +34,7 @@ The color gradient would need to be externalized. See @externalize-color-gradien
 = make color calculation respect predefined colors
 The color gradient calculated should generate colors which are plenty distinct from colors 
 given by the user.
+
+= fix: When caption is overflowing, the caption is displayed below instead of above
+When there is such a long title or tags that they fill the entire width, then the header 
+"Definition" for instance, is displayed below the tags and title instead of, more sensibly, above.
