@@ -49,41 +49,6 @@
   .map(color => color.lighten(80%).desaturate(50%))
 }
 
-#let init-theorems-dictionary(theorems, kind, colors) = {
-  assert(
-    type(colors) == dictionary,
-    message: "When assigning using named arguments, you must provide the colors as a dictionary",
-  )
-  // calculate the keys that are missing in colors
-  let missing-keys-in-colors = theorems.keys().filter(key => key not in colors)
-  colors += calculate-colors(missing-keys-in-colors.len())
-  .zip(missing-keys-in-colors)
-  .map(((color, key)) => ((key): color))
-  .sum()
-  for (theorem, supplement) in theorems.pairs() {
-    ((theorem): theorem-factory(supplement, colors.at(theorem), kind: kind))
-  }
-}
-
-#let init-theorems-array(theorems, kind, colors) = {
-  assert(
-    type(colors) == array,
-    message: "When assigning using positional arguments, you must provide the colors as an array",
-  )
-
-  // panic(array.filter)
-  let auto-count = colors.filter(it => it == auto).len()
-  let next-generated-color-idx = 0
-  let generated-colors = calculate-colors(theorems.len() - colors.len() + auto-count)
-  for (supplement, color) in theorems.zip(colors + (auto,) * theorems.len()) {
-    if color == auto {
-      color = generated-colors.at(next-generated-color-idx)
-      next-generated-color-idx += 1
-    }
-    (theorem-factory(supplement, color, kind: kind),)
-  }
-}
-
 #let init-theorems(kind, ..theorems) = {
   assert(theorems.pos() == (), message: "Unexpected positional arguments: " + repr(theorems.pos()))
 
