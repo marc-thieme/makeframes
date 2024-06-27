@@ -49,7 +49,7 @@
   .map(color => color.lighten(80%).desaturate(50%))
 }
 
-#let init-theorems(kind, ..theorems) = {
+#let prepare-args(theorems) = {
   assert(theorems.pos() == (), message: "Unexpected positional arguments: " + repr(theorems.pos()))
 
   let args = for (id, args) in theorems.named() {
@@ -64,6 +64,16 @@
   let next-color-idx = 0
 
   for (id, supplement, col) in args {
+    if col == auto {
+      col = generated-colors.at(next-color-idx)
+      next-color-idx += 1
+    }
+    ((id, supplement, col),)
+  }
+}
+
+#let init-theorems(kind, ..theorems) = {
+  for (id, supplement, col) in prepare-args(theorems) {
     if col == auto {
       col = generated-colors.at(next-color-idx)
       next-color-idx += 1
