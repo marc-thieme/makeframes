@@ -1,5 +1,5 @@
 #import "styling.typ": break-page-after-chapters
-#import "theorems.typ" : init-theorems, theorem-factory
+#import "theorems.typ" : init-theorems
 
 #let zb = $dot.circle$
 #let vs = $quad <--> quad$
