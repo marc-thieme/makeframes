@@ -1,0 +1,7 @@
+[package]
+name = "theorems"
+version = "0.0.1"
+entrypoint = "src/lecture-notes.typ"
+authors = ["Marc Thieme"]
+license = "MIT"
+description = "Display formatted and boxed theorems, definitions and co. with custom colors and headlines."
