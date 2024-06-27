@@ -1,21 +1,24 @@
 #set heading(numbering: "1.1.1")
 
-= low-emphasize elements
+= [DONE] low-emphasize elements
 Sometimes, we like to make a categorical point which doesn't have the same weight 
 as our normal theorems. 
 This todo adds elements which are visually less distinct 
 and spacious as the current design.
-== Considerations
-Make them a subkind of the normal ones?
+
+DONE: init-theorems exports inline and slim elements where all other theorems can also be accessed
+in the altered versions. In the future, when typst supports functions as scopes, we can add
+this preferred syntax:
 ```typst
 definition.small[Inifinite Primes][...]
 ```
-or entirely separate from
-```typst
-let (small-definition,) = init-small-theorems(...)
+Alternatively, we might add another function which initializes theorems without a default
+`definition[][]` export and instead each theorem kind is only a dictionary with all the versions:
+
+This would enable the old syntax again
 ```
-The former is probably more desired because it increases consistency in colors etc. 
-We would still need to figure out how the numbering would work in this case.
+definition.small[][]
+```
 
 = external color gradient handle <externalize-color-gradient>
 Sometimes, we want to group theorems with common/different kinds but at the same time,
