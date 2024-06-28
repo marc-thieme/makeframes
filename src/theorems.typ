@@ -53,7 +53,10 @@
   spawn-theorem(supplement, kind, color, tags, name, boxy-body(color, body))
 }
 
-#let slim-factory(supplement, color, kind) = (..tags, name) => spawn-theorem(supplement, kind, color, tags, name, none)
+#let slim-factory(supplement, color, kind) = (..tags, name) => {
+  assert(tags.named() == (:))
+  spawn-theorem(supplement, kind, color, tags.pos(), name, none)
+}
 
 #let inline-factory(color) = (..tags, name) => box(inline-caption-box(color, tags: tags.pos(), name))
 
