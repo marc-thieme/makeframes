@@ -4,13 +4,13 @@
 #let zb = $dot.circle$
 #let vs = $quad <--> quad$
 
-#let proof_styling(thm) = block(breakable: true, {
-    let params = lemmify.get-theorem-parameters(thm)
-    emph[Proof.]
-    [ ] + params.body
-    h(1fr)
-    box(scale(160%, origin: bottom + right, sym.square.stroked))
-  })
+#let proof-styling(thm) = block(breakable: true, {
+  let params = lemmify.get-theorem-parameters(thm)
+  emph[Proof.]
+  [ ] + params.body
+  h(1fr)
+  box(scale(160%, origin: bottom + right, sym.square.stroked))
+})
 
 #let proof(body) = block(breakable: true, {
   emph[Proof.]
