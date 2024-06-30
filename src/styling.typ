@@ -44,13 +44,7 @@
   // Create a note cover with the course name, author, and time
   // Modify parameters here if you want to add or modify information item
   let cover-page(title, author, professor, creater, time, abstract) = {
-    set page(paper: "us-letter", header: align(right)[
-      #smallcaps[#title]
-      #v(-6pt)
-      #line(length: 40%)
-    ], footer: locate(loc => {
-      align(center)[#loc.page()]
-    }))
+    set page(paper: "us-letter")
 
     block(height: 25%, fill: none)
     align(center, text(18pt)[*#title*])
