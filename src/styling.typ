@@ -1,14 +1,8 @@
 // Template design from: https://github.com/BeitianMa/typst-lecture-notes
 
-#let break-page-after-chapters() = body => {
-  show heading.where(level: 1): it => {
-    // Start a new page unless this is the first chapter
-    locate(loc => {
-      let h1_before = query(heading.where(level: 1).before(loc), loc)
-      if h1_before.len() != 1 {
-        pagebreak()
-      }
-    })
+#let break-page-after-chapters(body) = {
+  show heading.where(level: 1): it => context {
+    pagebreak()
     it
   }
   body
