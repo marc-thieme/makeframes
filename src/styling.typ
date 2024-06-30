@@ -93,7 +93,9 @@
         let align-side = if calc.odd(counter(page).get().first()) { right } else { left }
         align(align-side)[_ #active-heading.body _ #v(-6pt) #line(length: 40%)]
       },
-      footer: context { counter(page).get().first() },
+      footer: context {
+        align(center)[#counter(page).get().first()]
+      },
     )
 
     set-headings(body)
