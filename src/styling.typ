@@ -1,4 +1,3 @@
-// Template design from: https://github.com/BeitianMa/typst-lecture-notes
 #let break-page-after-chapters(body) = {
   show heading.where(level: 1): it => context {
     pagebreak()
