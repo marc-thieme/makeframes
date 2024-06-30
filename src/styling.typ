@@ -63,26 +63,9 @@
   let outline-page(title) = {
     set page(
       paper: "us-letter",
-      // Headers are set to right- and left-justified
-      // on odd and even pages, respectively
-      header: locate(loc => {
-        if calc.odd(loc.page()) {
-          align(right)[
-            #smallcaps[#title]
-            #v(-6pt)
-            #line(length: 40%)
-          ]
-        } else {
-          align(left)[
-            #smallcaps[#title]
-            #v(-6pt)
-            #line(length: 40%)
-          ]
-        }
-      }),
-      footer: locate(loc => {
-        align(center)[#loc.page()]
-      }),
+      footer: context {
+        align(center)[#counter(page).get().first()]
+      },
     )
 
     show outline.entry.where(level: 1): it => {
@@ -90,7 +73,7 @@
       strong("§ " + it)
     }
 
-    align(center, text(18pt, weight: "bold")[#title])
+    align(center, text(18pt, weight: "bold", title))
     v(15pt)
     outline(title: none, depth: 2, indent: auto)
   }
