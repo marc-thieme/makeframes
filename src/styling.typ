@@ -1,5 +1,4 @@
 // Template design from: https://github.com/BeitianMa/typst-lecture-notes
-
 #let break-page-after-chapters(body) = {
   show heading.where(level: 1): it => context {
     pagebreak()
@@ -83,25 +82,19 @@
   let body-page(title, body) = {
     set page(
       paper: "us-letter",
-      header: locate(
-        loc => {
-          let h1_before = query(heading.where(level: 1).before(loc), loc)
+      header: context {
+        let headings  = query(heading.where(level: 1))
+        // If there's are new level 1 heading on the same page, choose this one, else the preceding one
+        let active-heading = headings.rev().find(head => head.location().page() <= here().page())
+        if active-heading == none {
+          active-heading = title
+        }
 
-          let h1_after = query(heading.where(level: 1).after(loc), loc)
-
-          // Right- and left-justified on odd and even pages, respectively
-          // Automatically matches the nearest level 1 title
-          // let nearest_heading = (h1_before, h1_after, (heading(""))).find(arr => arr != ()).body
-          let headings = (..h1_before, ..h1_after)
-          if headings.len() != 0 {
-            let align_side = if calc.odd(loc.page()) { right } else { left }
-            align(align_side)[_ #headings.first().body _ #v(-6pt) #line(length: 40%)]
-          }
-        },
-      ),
-      footer: locate(loc => {
-        align(center)[#loc.page()]
-      }),
+        // Right- and left-justified on odd and even pages, respectively
+        let align-side = if calc.odd(counter(page).get().first()) { right } else { left }
+        align(align-side)[_ #active-heading.body _ #v(-6pt) #line(length: 40%)]
+      },
+      footer: context { counter(page).get().first() },
     )
 
     set-headings(body)
