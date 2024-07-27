@@ -4,9 +4,9 @@
 #let zb = $dot.circle$
 #let vs = $quad <--> quad$
 
-#let base = underline[_Base Case_] + [ : ]
-#let step(variable) = [#underline[_Induction Step_] : $variable arrow.r.curve variable + 1$.]
-#let assume = underline[_Assume_] + [ : ]
+#let base = linebreak() + underline[_Base Case_] + [ : ]
+#let step(variable) = linebreak() + [#underline[_Induction Step_] : $variable arrow.r.curve variable + 1$.]
+#let assume = linebreak() + underline[_Assume_] + [ : ]
 
 #let proof-styling(thm) = block(breakable: true, {
   let params = lemmify.get-theorem-parameters(thm)
