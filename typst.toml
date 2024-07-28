@@ -1,6 +1,6 @@
 [package]
 name = "theorems"
-version = "0.0.1"
+version = "0.0.0"
 entrypoint = "src/lecture-notes.typ"
 authors = ["Marc Thieme"]
 license = "MIT"
