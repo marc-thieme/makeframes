@@ -47,7 +47,7 @@
     block(height: 25%, fill: none)
     align(center, text(18pt)[*#title*])
     align(center, text(12pt)[*By #author*])
-    align(center, text(11pt)[_Taught by Prof. #professor _])
+    align(center, text(11pt)[_Taught by #professor _])
 
     v(7.5%)
     abstract
