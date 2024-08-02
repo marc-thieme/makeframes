@@ -4,12 +4,12 @@
 #let zb = $dot.circle$
 #let vs = $quad <--> quad$
 
-#let base = linebreak() + underline[_Base Case_] + [ : ]
-#let step(variable) = linebreak() + [#underline[_Induction Step_] : $variable arrow.r.curve variable + 1$.]
-#let assume = linebreak() + underline[_Assume_] + [ : ]
+#let base = linebreak(justify: true) + underline[_Base Case_] + [ : ]
+#let step(variable) = linebreak(justify: true) + [#underline[_Induction Step_] : $variable arrow.r.curve variable + 1$.]
+#let assume = linebreak(justify: true) + underline[_Assume_] + [ : ]
 
 #let proof-styling(thm) = block(breakable: true, {
-  let params = lemmify.get-theorem-parameters(thm)
+  let pfalsearams = lemmify.get-theorem-parameters(thm)
   emph[Proof.]
   [ ] + params.body
   h(1fr)
