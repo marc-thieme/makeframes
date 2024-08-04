@@ -8,6 +8,9 @@
 #let step(variable) = linebreak(justify: true) + [#underline[_Induction Step_] : $variable arrow.r.curve variable + 1$.]
 #let assume = linebreak(justify: true) + underline[_Assume_] + [ : ]
 
+#let separate() = line(length: 100%, stroke: (dash: "dashed", paint: gray, thickness: 0.2pt))
+
+
 #let proof-styling(thm) = block(breakable: true, {
   let pfalsearams = lemmify.get-theorem-parameters(thm)
   emph[Proof.]
