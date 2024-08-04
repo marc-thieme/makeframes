@@ -4,9 +4,9 @@
 #let zb = $dot.circle$
 #let vs = $quad <--> quad$
 
-#let base = linebreak(justify: true) + underline[_Base Case_] + [ : ]
-#let step(variable) = linebreak(justify: true) + [#underline[_Induction Step_] : $variable arrow.r.curve variable + 1$.]
-#let assume = linebreak(justify: true) + underline[_Assume_] + [ : ]
+#let induction-base() = linebreak(justify: true) + underline[_Base Case_] + [ : ]
+#let induction-step(variable) = linebreak(justify: true) + [#underline[_Induction Step_] : $variable arrow.r.curve variable + 1$.]
+#let induction-assume() = linebreak(justify: true) + underline[_Assume_] + [ : ]
 
 #let separate() = line(length: 100%, stroke: (dash: "dashed", paint: gray, thickness: 0.2pt))
 
