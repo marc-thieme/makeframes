@@ -36,7 +36,7 @@
 // 1. We need to return a type figure to make it labellable
 // 2. We need to specify rules (set and show) to modify caption styling
 // 3. If we specify rules in the block which is returned, a type 'styled' is returned instead of the figure
-#let spawn-theorem(supplement, kind, color, tags, name, body) = figure(kind: kind, supplement: supplement, {
+#let spawn-theorem(supplement, kind, color, name, tags, body) = figure(kind: kind, supplement: supplement, {
     // Offset that our outer helper figure has the same kind. We can't introduct its own kind for this helper 
     // because the user might rely on the outer one having the kind he knows when he's writing rules for references
     show figure: it => {it.counter.update(old => old - 1); it}
@@ -46,19 +46,22 @@
   }
 )
 
-#let block-factory(supplement, color, kind) = (..tags, body) => {
-  assert(tags.named() == (:))
-  tags = tags.pos()
-  let (..tags, name) = if tags == () { ((), none) } else { tags }
-  spawn-theorem(supplement, kind, color, tags, name, boxy-body(color, body))
+#let block-factory(supplement, color, kind) = (..name-and-tags, body) => {
+  assert(name-and-tags.named() == (:))
+  let name = none
+  let tags = ()
+  if name-and-tags.pos() != () {
+    (name, ..tags) = name-and-tags.pos()
+  }
+  spawn-theorem(supplement, kind, color, name, tags, boxy-body(color, body))
 }
 
-#let slim-factory(supplement, color, kind) = (..tags, name) => {
+#let slim-factory(supplement, color, kind) = (name, ..tags) => {
   assert(tags.named() == (:))
-  spawn-theorem(supplement, kind, color, tags.pos(), name, none)
+  spawn-theorem(supplement, kind, color, name, tags.pos(), none)
 }
 
-#let inline-factory(color) = (..tags, name) => box(inline-caption-box(color, tags: tags.pos(), name))
+#let inline-factory(color) = (name, ..tags) => box(inline-caption-box(color, tags: tags.pos(), name))
 
 #let calculate-colors(count) = {
   let samples = for i in range(count) {
