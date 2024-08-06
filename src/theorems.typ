@@ -53,7 +53,8 @@
   if name-and-tags.pos() != () {
     (name, ..tags) = name-and-tags.pos()
   }
-  spawn-theorem(supplement, kind, color, name, tags, boxy-body(color, body))
+  let theorem-body = if body == [] { none } else { boxy-body(color, body) }
+  spawn-theorem(supplement, kind, color, name, tags, theorem-body)
 }
 
 #let slim-factory(supplement, color, kind) = (name, ..tags) => {
