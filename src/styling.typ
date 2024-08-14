@@ -1,4 +1,4 @@
-#let break-page-after-chapters(body) = {
+#let break-page-after-chapters() = body => {
   show heading.where(level: 1): it => context {
     pagebreak()
     it
