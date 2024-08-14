@@ -103,16 +103,6 @@
     }
     ((id): block-factory(supplement, col, kind))
   }
-  (slim: {
-      for (id, supplement, col) in prepare-args(theorems) {
-        if col == auto {
-          col = generated-colors.at(next-color-idx)
-          next-color-idx += 1
-        }
-        ((id): slim-factory(supplement, col, kind))
-      }
-    }
-  )
   (inline: {
       for (id, supplement, col) in prepare-args(theorems) {
         if col == auto {
