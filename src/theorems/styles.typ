@@ -105,8 +105,8 @@
       title = [#title~]
     }
 
-    let tag-str = [_(#tags.join(", ")) _]
-    [~*#supplement #number~ _#title _*#tag-str*:* ~]
+    let tag-str = if tags != () {[_(#tags.join(", "))_~]} else {[]}
+    [~*#supplement #number~ _#(title)_*#tag-str*:* ~]
   }
 
   block(
