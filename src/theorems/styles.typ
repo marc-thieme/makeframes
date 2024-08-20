@@ -45,7 +45,7 @@
     parts.push(header())
   }
 
-  if body != none {
+  if body != [] {
     parts.push(board())
   }
 
