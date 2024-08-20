@@ -1,10 +1,12 @@
-#import "theorems/parse.typ"
-#import "theorems/layout.typ"
-#import "theorems/styles.typ"
+#import "theorems/parse.typ" as parse
+#import "theorems/layout.typ" as layout
+#import "theorems/styles.typ" as styles
 
-#let init-theorems(kind, ..theorems) = {
+#let styles = styles
+
+#let init-theorems(kind, style: styles.boxy, ..theorems) = {
   for (id, supplement, color) in parse.parse-args(theorems) {
-    ((id): layout.factory(styles.default-style, supplement, kind, color))
+    ((id): layout.factory(style, supplement, kind, color))
   }
 }
 
