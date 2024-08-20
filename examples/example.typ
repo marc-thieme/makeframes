@@ -1,6 +1,6 @@
 #import "../src/lecture-notes.typ": *
 
-#let (slim, inline, example, note, ..all-different-theorems) = init-theorems("theorems", 
+#let (example, note, ..all-different-theorems) = init-theorems("theorems", 
   theorem: ("Satz",),
   definition: ("Definition",),
   property: ("Eigenschaft",),
@@ -32,8 +32,6 @@ The colors are always spersed over the color wheel as you can see here:
     #lorem(50)
   ]
 
-  Text like #(inline.at(id))[lorem ipsum][WS21][SS22] can also be inlined.
-
   Or we can have a slim version where the body is omitted
-  #(slim.at(id))[lorem ipsum][WS21][SS22]
+  #func[lorem ipsum][WS21][SS22][]
 ]
