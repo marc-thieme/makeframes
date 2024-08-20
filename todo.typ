@@ -1,24 +1,19 @@
 #set heading(numbering: "1.1.1")
 
-= [DONE] low-emphasize elements
-Sometimes, we like to make a categorical point which doesn't have the same weight 
-as our normal theorems. 
-This todo adds elements which are visually less distinct 
-and spacious as the current design.
+= Hint Styling/Variants 
+Which are less intrusive, for example only highlighting the edge of the page in a color.
 
-DONE: init-theorems exports inline and slim elements where all other theorems can also be accessed
-in the altered versions. In the future, when typst supports functions as scopes, we can add
-this preferred syntax:
-```typst
-definition.small[Inifinite Primes][...]
-```
-Alternatively, we might add another function which initializes theorems without a default
-`definition[][]` export and instead each theorem kind is only a dictionary with all the versions:
+= We want to reduce the styling to one function which can also be supplied customly
+This would open the door for more streamlined styling editions and providing custom styling 
+on demnad.
 
-This would enable the old syntax again
-```
-definition.small[][]
-```
+Then, we can provide custom styling as a function argument and potentially appyly it using a show rule.
+
+= Style using arguemnt
+We do not like the syntax `#(slim.theorem)[...]` anynmore because it is less discoverable, the brace is weird
+and you have to add the slim argument to the init-theorems destructuring, which is unexpected.
+
+We prefer a syntax where the theorem functions have a positional `style: "slim"` argument.
 
 = external color gradient handle <externalize-color-gradient>
 Sometimes, we want to group theorems with common/different kinds but at the same time,
@@ -41,3 +36,24 @@ given by the user.
 = fix: When caption is overflowing, the caption is displayed below instead of above
 When there is such a long title or tags that they fill the entire width, then the header 
 "Definition" for instance, is displayed below the tags and title instead of, more sensibly, above.
+
+= [DONE] low-emphasize elements
+Sometimes, we like to make a categorical point which doesn't have the same weight 
+as our normal theorems. 
+This todo adds elements which are visually less distinct 
+and spacious as the current design.
+
+DONE: init-theorems exports inline and slim elements where all other theorems can also be accessed
+in the altered versions. In the future, when typst supports functions as scopes, we can add
+this preferred syntax:
+```typst
+definition.small[Inifinite Primes][...]
+```
+Alternatively, we might add another function which initializes theorems without a default
+`definition[][]` export and instead each theorem kind is only a dictionary with all the versions:
+
+This would enable the old syntax again
+```
+definition.small[][]
+```
+
