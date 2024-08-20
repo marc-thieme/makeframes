@@ -22,13 +22,16 @@
         custom-arg,
       ).map(repr).join(", ")
     ]
-    // Offset that our outer helper figure has the same kind. We can't introduct its own kind for this helper
-    // because the user might rely on the outer one having the kind he knows when he's writing rules for references
-    show figure.where(caption: caption-id): it => {
+    // Offset the counter because our outer helper figure has the same kind. 
+    // The outer figure must have the same kind as the inner because the user might rely 
+    // on the outer one having the kind he knows when he's writing rules for references
+    show figure.where(kind: kind): it => {
       it.counter.update(old => old - 1)
       it
     }
     // NOTE I don't know the performance impact of this
+    // Inject the customized styling into the caption.
+    // We use the caption because we have access to the supplement and the numbering there.
     show figure.caption.where(body: caption-id): caption => {
       let number = caption.counter.display(caption.numbering)
       style(title, tags, body, supplement, number, custom-arg)
