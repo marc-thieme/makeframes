@@ -10,7 +10,7 @@
     arguments(..box-args, radius: new-radius-dict)
   }
 
-  let corner-radius = 4pt
+  let corner-radius = 5pt
 
   let header(round-bottom) = align(
     left,
@@ -102,11 +102,12 @@
     none
   } else {
     if title != [] {
-      title = [#title~]
+      title = [~~#title~]
     }
 
-    let tag-str = if tags != () {[_(#tags.join(", "))_~]} else {[]}
-    [~*#supplement #number~ _#(title)_*#tag-str*:* ~]
+    let tag-str = if tags != () {[~(#tags.join(", "))~]} else {[]}
+    let supplement-str = text(gray.darken(50%))[#supplement #number]
+    [~#supplement-str~*#(title)*_#(tag-str)_:~]
   }
 
   block(
