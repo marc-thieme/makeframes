@@ -1,4 +1,4 @@
-#import "../src/lecture-notes.typ": *
+#import "../src/lib.typ": *
 
 #let (example, note, ..all-different-theorems) = init-theorems("theorems", 
   theorem: ("Satz",),

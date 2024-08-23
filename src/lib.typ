@@ -1,6 +1,6 @@
-#import "theorems/parse.typ" as parse
-#import "theorems/layout.typ" as layout
-#import "theorems/styles.typ" as styles
+#import "parse.typ" as parse
+#import "layout.typ" as layout
+#import "styles.typ" as styles
 
 #let styles = styles
 
