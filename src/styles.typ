@@ -4,45 +4,50 @@
     message: "Please provide a color as argument for the theorem instance" + supplement,
   )
 
-  let round-corners(box-args, ..args) = {
-    assert(args.pos() == ())
-    let new-radius-dict = box-args.named().at("radius", default: (:)) + args.named()
-    arguments(..box-args, radius: new-radius-dict)
-  }
-
   let corner-radius = 5pt
 
-  let header(round-bottom) = align(
+  let round-bottom-corners-of-tags = body == []
+  let display-title = title not in ([], "")
+  let round-top-left-body-corner = title in ([], none)
+
+  let calculate-corner-roundings-for-each-box() = {
+    let corner-roundings = ((:),) * (tags.len() + int(display-title))
+    if corner-roundings != () {
+      corner-roundings.first() += (top-left: corner-radius)
+      corner-roundings.last() += (top-right: corner-radius)
+      if round-bottom-corners-of-tags {
+        corner-roundings.first() += (bottom-left: corner-radius)
+        corner-roundings.last() += (bottom-right: corner-radius)
+      }
+    }
+    corner-roundings
+  }
+
+  let header() = align(
     left,
     {
-      let box = box.with(inset: 0.5em)
-      let display-title = title not in ([], "")
 
-      let boxes-args = ()
+      let box = box.with(inset: 0.5em)
+      let tag-box(..args, body) = box.with(..args, stroke, align(horizon, body))
+      let roundings = calculate-corner-roundings-for-each-box()
 
       if display-title {
-        boxes-args.push(arguments(
+        box(
           fill: accent-color,
           stroke: accent-color,
-          title
-          )
+          radius: roundings.first(),
+          title,
         )
       }
 
-      boxes-args += tags.map(it => arguments(stroke: accent-color, it))
-
-      if boxes-args != () {
-        boxes-args.first() = round-corners(boxes-args.first(), top-left: corner-radius)
-        boxes-args.last() = round-corners(boxes-args.last(), top-right: corner-radius)
-
-        if round-bottom {
-          boxes-args.first() = round-corners(boxes-args.first(), bottom-left: corner-radius)
-          boxes-args.last() = round-corners(boxes-args.last(), bottom-right: corner-radius)
-        }
-      }
-
-      boxes-args.map(it => box(..it)).join()
-
+      tags
+        .zip(roundings.slice(1))
+        .map(((tag, rounding)) => box(
+            stroke: accent-color,
+            radius: rounding,
+            tag,
+          ))
+        .join()
 
       if display-title or tags != () {
         h(1fr)
@@ -54,23 +59,23 @@
     },
   )
 
-  let board(round-left-corner) = {
-  let round-corners = (bottom: corner-radius, top-right: corner-radius)
-  if round-left-corner {
-    round-corners.top-left = corner-radius
-  }
-  align(
-    left,
-    block(
-      width: 100%,
-      inset: 0.8em,
-      radius: round-corners,
-      stroke: accent-color + 0.13em,
-      spacing: 0em,
-      outset: (y: 0em),
-      body,
-    ),
-  )
+  let board() = {
+    let round-corners = (bottom: corner-radius, top-right: corner-radius)
+    if round-top-left-body-corner {
+      round-corners.top-left = corner-radius
+    }
+    align(
+      left,
+      block(
+        width: 100%,
+        inset: 0.8em,
+        radius: round-corners,
+        stroke: accent-color + 0.13em,
+        spacing: 0em,
+        outset: (y: 0em),
+        body,
+      ),
+    )
   }
 
   let parts = ()
@@ -78,13 +83,11 @@
   let rounded-corners = (bottom: corner-radius)
 
   if title != none {
-    let round-bottom = body == []
-    parts.push(header(round-bottom))
+    parts.push(header())
   }
 
   if body != [] {
-    let round-corner = title in ([], none)
-    parts.push(board(round-corner))
+    parts.push(board())
   }
 
   stack(..parts)
@@ -105,7 +108,11 @@
       title = [~~#title~]
     }
 
-    let tag-str = if tags != () {[~(#tags.join(", "))~]} else {[]}
+    let tag-str = if tags != () {
+      [~(#tags.join(", "))~]
+    } else {
+      []
+    }
     let supplement-str = text(gray.darken(50%))[#supplement #number]
     [~#supplement-str~*#(title)*_#(tag-str)_:~]
   }
