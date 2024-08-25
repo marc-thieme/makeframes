@@ -7,10 +7,6 @@ Technically, we could use state explicitly or have the factory not apply the sho
 Syntax would probably be `show: set-style(style)`\
 We would need to look into if we need to introduce a new `set-theorems` variant which does not set the show rule.
 
-== fix: When caption is overflowing, the caption is displayed below instead of above
-When there is such a long title or tags that they fill the entire width, then the header 
-"Definition" for instance, is displayed below the tags and title instead of, more sensibly, above.
-
 == external color gradient handle <externalize-color-gradient>
 Sometimes, we want to group theorems with common/different kinds but at the same time,
 we want the color gradient to go over all of them. 
@@ -62,4 +58,8 @@ This would enable the old syntax again
 ```
 definition.small[][]
 ```
+
+== [DONE] fix: When caption is overflowing, the caption is displayed below instead of above
+When there is such a long title or tags that they fill the entire width, then the header 
+"Definition" for instance, is displayed below the tags and title instead of, more sensibly, above.
 
