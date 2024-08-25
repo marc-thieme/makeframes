@@ -5,57 +5,42 @@
   )
 
   let corner-radius = 5pt
+  let stroke = accent-color + 0.13em
 
   let round-bottom-corners-of-tags = body == []
   let display-title = title not in ([], "")
   let round-top-left-body-corner = title in ([], none)
 
-  let calculate-corner-roundings-for-each-box() = {
-    let corner-roundings = ((:),) * (tags.len() + int(display-title))
-    if corner-roundings != () {
-      corner-roundings.first() += (top-left: corner-radius)
-      corner-roundings.last() += (top-right: corner-radius)
-      if round-bottom-corners-of-tags {
-        corner-roundings.first() += (bottom-left: corner-radius)
-        corner-roundings.last() += (bottom-right: corner-radius)
-      }
-    }
-    corner-roundings
-  }
-
   let header() = align(
     left,
     {
+      let inset = 0.5em
 
-      let box = box.with(inset: 0.5em)
-      let tag-box(..args, body) = box.with(..args, stroke, align(horizon, body))
-      let roundings = calculate-corner-roundings-for-each-box()
-
+      let tag-elements = tags
       if display-title {
-        box(
-          fill: accent-color,
-          stroke: accent-color,
-          radius: roundings.first(),
-          title,
-        )
+        let title-cell = grid.cell(fill: accent-color, title)
+        tag-elements.insert(0, title-cell)
       }
 
-      tags
-        .zip(roundings.slice(1))
-        .map(((tag, rounding)) => box(
-            stroke: accent-color,
-            radius: rounding,
-            tag,
-          ))
-        .join()
+      let rounded-corners = (top: corner-radius)
+      if round-bottom-corners-of-tags {
+        rounded-corners.bottom = corner-radius
+      }
 
-      if display-title or tags != () {
+      let grid-cells = tag-elements.intersperse(grid.vline(stroke: stroke))
+      let tag-grid = grid(columns: tag-elements.len(), align: horizon, inset: inset, ..grid-cells)
+      box(inset: 0pt, stroke: stroke, radius: rounded-corners, tag-grid)
+
+      if tag-elements != () {
         h(1fr)
       }
 
-      box(outset: (
-        y: 0em,
-      ))[#supplement #number]
+      box(
+        inset: inset,
+        outset: (
+          y: 0em,
+        ),
+      )[#supplement #number]
     },
   )
 
@@ -70,7 +55,7 @@
         width: 100%,
         inset: 0.8em,
         radius: round-corners,
-        stroke: accent-color + 0.13em,
+        stroke: stroke,
         spacing: 0em,
         outset: (y: 0em),
         body,
