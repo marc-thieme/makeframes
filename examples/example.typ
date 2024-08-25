@@ -14,6 +14,11 @@
 
 #note[Note][with tag][!][
   Our blocks can have an arbitrary number of tags to be put between title and body.
+  
+  #styles.divide()
+
+  In this boxy style, we can also divide the body into multiple sections by using the `divide()` function.
+  
 ]<this-note>
 
 You can also reference stuff like @this-note naturally.
