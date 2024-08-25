@@ -70,3 +70,15 @@ Here, we present a few edge cases which we also handle gracefully.
 #note[Here][Tags have different sizes][$ sum_sum^sum$][Some vertical space: #v(1cm)][
   #lorem(20)
 ]
+
+#note[][
+  #note[][
+    #note[][
+      When nesting definitions, we want the counter to increase from outer to inner.
+    ]
+  ]
+]
+
+#note[][
+  And have the counter continue normally.
+]
