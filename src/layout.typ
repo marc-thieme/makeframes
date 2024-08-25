@@ -25,10 +25,7 @@
     // Offset the counter because our outer helper figure has the same kind. 
     // The outer figure must have the same kind as the inner because the user might rely 
     // on the outer one having the kind he knows when he's writing rules for references
-    show figure.where(kind: kind): it => {
-      it.counter.update(old => old - 1)
-      it
-    }
+    counter(figure.where(kind: kind)).update(old => old - 1)
     // NOTE I don't know the performance impact of this
     // Inject the customized styling into the caption.
     // We use the caption because we have access to the supplement and the numbering there.
