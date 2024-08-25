@@ -27,20 +27,24 @@
         rounded-corners.bottom = corner-radius
       }
 
-      let grid-cells = tag-elements.intersperse(grid.vline(stroke: stroke))
-      let tag-grid = grid(columns: tag-elements.len(), align: horizon, inset: inset, ..grid-cells)
-      box(inset: 0pt, stroke: stroke, radius: rounded-corners, tag-grid)
-
-      if tag-elements != () {
-        h(1fr)
+      let rendered-tags = if tag-elements == () [] else {
+        let grid-cells = tag-elements.intersperse(grid.vline(stroke: stroke))
+        let tag-grid = grid(columns: tag-elements.len(), align: horizon, inset: inset, ..grid-cells)
+          box(inset: 0pt, stroke: stroke, radius: rounded-corners, tag-grid)
+          h(1fr)
       }
 
-      box(
-        inset: inset,
-        outset: (
-          y: 0em,
-        ),
-      )[#supplement #number]
+      let supplement-str = box(inset: inset)[#supplement #number]
+
+      layout(((width: available-width,)) => {
+        if measure(rendered-tags + supplement-str).width < available-width {
+          rendered-tags
+          supplement-str
+        } else [
+          #supplement #number \
+          #rendered-tags
+        ]
+      })
     },
   )
 
