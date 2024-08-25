@@ -55,3 +55,13 @@ Here are examples for the other theorems defined above.
 
   #func(style: styles.hint)[lorem ipsum][#lorem(50)]
 ]
+
+= Edge Cases
+Here, we present a few edge cases which we also handle gracefully.
+#note[Test][Here comes a lot of text. This should make it so there is no room for the supplement][
+  #lorem(20)
+]
+
+#note[Here][Tags have different sizes][$ sum_sum^sum$][Some vertical space: #v(1cm)][
+  #lorem(20)
+]
