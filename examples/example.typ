@@ -73,7 +73,7 @@ Here, we present a few edge cases which we also handle gracefully.
 
 #note[][
   #note[][
-    #note[][
+    #note(style: styles.hint)[][
       When nesting definitions, we want the counter to increase from outer to inner.
     ]
   ]
