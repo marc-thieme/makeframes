@@ -103,7 +103,6 @@
     thickness: 3.5pt,
     paint: accent-color,
     cap: "round",
-    dash: "dotted",
   )
 
   let header = if title == none {
@@ -122,11 +121,15 @@
     [~#supplement-str~*#(title)*_#(tag-str)_:~]
   }
 
-  block(
-    width: 100%,
-    inset: 0.7em,
-    stroke: (left: stroke),
-    align(left, header + body),
-  )
-}
+  layout(((width,)) => {
+    let text = block(
+      width: width,
+      inset: (left: 0.7em, y: 0.7em),
+      align(left, header + body),
+    )
+
+    place(line(stroke: stroke, angle: 90deg, length: measure(text).height))
+    text
+  })
+ }
 
