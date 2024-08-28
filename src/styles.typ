@@ -40,13 +40,13 @@
         let rendered-tags = if tag-elements == () [] else {
           let grid-cells = tag-elements.intersperse(grid.vline(stroke: stroke))
           let tag-grid = grid(columns: tag-elements.len(), align: horizon, inset: inset, ..grid-cells)
-            box(inset: 0pt, stroke: stroke, radius: rounded-corners, tag-grid)
-            h(1fr)
+          box(clip: true, stroke: stroke, radius: rounded-corners, tag-grid)
+          h(1fr)
         }
 
         let supplement-str = box(inset: inset)[#supplement #number]
 
-        layout(((width: available-width,)) => {
+        layout(((width: available-width)) => {
           if measure(rendered-tags + supplement-str).width < available-width {
             rendered-tags
             supplement-str
