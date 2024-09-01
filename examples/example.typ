@@ -37,6 +37,10 @@ You can also reference stuff like @this-note naturally.
 
 #note[Also possible][to give an empty body, which omits the body entirely][]
 
+#note[][In all cases][
+  When you give an empty title, it is not displayed.
+]
+
 #note(style: styles.hint)[Hints][smaller][seemless][We can also provide `style: styles.hint` which creates a
 more streamlined styling for a theorem.
 This also supports all the above syntax]
