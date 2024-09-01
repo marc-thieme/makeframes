@@ -19,7 +19,7 @@
 
     let round-bottom-corners-of-tags = body == []
     let display-title = title not in ([], "")
-    let round-top-left-body-corner = title in ([], none)
+    let round-top-left-body-corner = title in ([], none) and tags == ()
 
     let header() = align(
       left,
