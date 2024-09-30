@@ -1,6 +1,6 @@
 #import "styles.typ" as styles
 
-#let init-theorems(kind, style: styles.boxy, ..theorems) = {
+#let init-theorems(kind, style: styles.hint, ..theorems) = {
   import "parse.typ"
   import "layout.typ"
 
