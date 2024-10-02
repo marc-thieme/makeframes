@@ -118,7 +118,8 @@
       []
     }
     let supplement-str = text(gray.darken(50%))[#supplement #number]
-    [~#supplement-str~*#(title)*_#(tag-str)_:~]
+    let head-body-separator = if body == [] [] else [:]
+    [~#supplement-str~*#(title)*_#(tag-str)_#head-body-separator~]
   }
 
   layout(((width,)) => {
