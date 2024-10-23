@@ -1,6 +1,6 @@
 #import "../src/lib.typ": *
 
-#let (example, note, ..all-different-theorems) = init-theorems("theorems", 
+#let (example, note, ..all-different-theorems) = init-theorems("theorems", default-style: styles.boxy,
   theorem: ("Satz",),
   definition: ("Definition",),
   example: ("Beispiel", gray),
@@ -60,7 +60,11 @@ Here are examples for the other theorems defined above.
   Or we can have a slim version where the body is omitted
   #func[lorem ipsum][WS21][SS22][]
 
-  We also provide less intrusive styles
+  We also provide less intrusive styles. 
+  This style is actually the default. 
+  For this example file however, we have overridden the default to be the boxy style instead.
+  You can do this by specifying the according parameter in the init-theorems function.
+  This style supports the same combinations of title/tags/contents as the boxy style does.
 
   #func(style: styles.hint)[lorem ipsum][#lorem(50)]
 ]
