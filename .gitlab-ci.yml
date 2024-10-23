@@ -1,0 +1,12 @@
+stages:
+  - compile
+
+compile_example:
+  image: ghcr.io/typst/typst:latest
+  stage: compile
+  script:
+    - cd examples
+    - typst compile example.typ example.pdf --root ..
+  artifacts:
+    paths:
+      - examples/example.pdf
