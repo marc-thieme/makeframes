@@ -1,11 +1,11 @@
 #import "styles.typ" as styles
 
-#let init-theorems(kind, style: styles.hint, ..theorems) = {
+#let init-theorems(kind, default-style: styles.hint, ..theorems) = {
   import "parse.typ"
   import "layout.typ"
 
   for (id, supplement, color) in parse.parse-args(theorems) {
-    ((id): layout.factory(style, supplement, kind, color))
+    ((id): layout.factory(default-style, supplement, kind, color))
   }
 }
 
