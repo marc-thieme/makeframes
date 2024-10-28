@@ -29,7 +29,7 @@
     // NOTE I don't know the performance impact of this
     // Inject the customized styling into the caption.
     // We use the caption because we have access to the supplement and the numbering there.
-    show figure.caption.where(body: caption-id): caption => {
+    show figure.caption.where(body: caption-id): caption => context {
       let number = caption.counter.display(caption.numbering)
       style(title, tags, body, supplement, number, custom-arg)
     }
