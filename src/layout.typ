@@ -58,3 +58,8 @@
     spawn-theorem(style, kind, title, tags, body, supplement, arg)
   }
 )
+
+#let DIVIDE-IDENTIFIER = "__THEOREMS_DIVIDE-IDENTIFIER"
+#let divide() = figure(kind: DIVIDE-IDENTIFIER, supplement: none)[
+  `Error: Dividers not supported by this styling function.`
+]
