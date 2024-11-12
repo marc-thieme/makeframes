@@ -1,11 +1,19 @@
 #set heading(numbering: "1.1.1")
 
 = OPEN
+== make color calculation respect predefined colors
+The color gradient calculated should generate colors which are plenty distinct from colors 
+given by the user.
 
-== As a user, I am able to apply styling as a show rule to naturally change the default style for parts of my file
-Technically, we could use state explicitly or have the factory not apply the show rule yet and enforce that the user sets a show rule.\
-Syntax would probably be `show: set-style(style)`\
-We would need to look into if we need to introduce a new `set-theorems` variant which does not set the show rule.
+= Postponed
+== decentralize theorem definitions
+Right now, we define theorems as groups through the `init-theorems` call, grouped together
+by their color-gradient and kind. 
+However, this is fairly arbitrary. A more flexible system would have one `init-theorem` call
+for each theorem kind.
+The color gradient would need to be externalized. See @externalize-color-gradient.
+
+_Response_: The current system does not create problems for me at all in practice.
 
 == external color gradient handle <externalize-color-gradient>
 Sometimes, we want to group theorems with common/different kinds but at the same time,
@@ -14,18 +22,15 @@ For this, we should figure out a way to externlize this. Maybe with a counter.
 However, this isn't trivial as we need to figure out how many colors there will be used in total
 before we can do any calculations.
 
-== decentralize theorem definitions
-Right now, we define theorems as groups through the `init-theorems` call, grouped together
-by their color-gradient and kind. 
-However, this is fairly arbitrary. A more flexible system would have one `init-theorem` call
-for each theorem kind.
-The color gradient would need to be externalized. See @externalize-color-gradient.
-
-== make color calculation respect predefined colors
-The color gradient calculated should generate colors which are plenty distinct from colors 
-given by the user.
+_Response_: Not needed at this point. Too complicated.
 
 = DONE
+== [DONE] As a user, I am able to apply styling as a show rule to naturally change the default style for parts of my file
+Technically, we could use state explicitly or have the factory not apply the show rule yet and enforce that the user sets a show rule.\
+Syntax would probably be `show: set-style(style)`\
+We would need to look into if we need to introduce a new `set-theorems` variant which does not set the show rule.
+_Scrapped_ because we supply styling in the arguments now.
+
 == [DONE] Hint Styling/Variants 
 Which are less intrusive, for example only highlighting the edge of the page in a color.
 
