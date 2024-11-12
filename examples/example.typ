@@ -24,7 +24,7 @@
 You can also reference stuff like @this-note naturally.
 
 #example[][
-  We have two way to spawn theorems without a title.
+  We have two ways to spawn theorems without a title.
   Either by providing an empty title.
   In this case, the supplement will be displayed in place of a title.
 ]
@@ -43,7 +43,10 @@ You can also reference stuff like @this-note naturally.
 
 #note(style: styles.hint)[Hints][smaller][seemless][We can also provide `style: styles.hint` which creates a
 more streamlined styling for a theorem.
-This also supports all the above syntax]
+This also supports all the above syntax.
+#styles.divide()
+This also includes the divider.
+]
 
 The colors are always spersed over the color wheel as you can see here.
 Here are examples for the other theorems defined above.
