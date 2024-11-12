@@ -3,7 +3,7 @@
     (i * 100% / count,)
   }
   gradient.linear(..color.map.rainbow.rev()).samples(..samples)
-  .map(color => color.lighten(80%).desaturate(50%))
+  .map(color => color.lighten(70%).desaturate(50%))
 }
 
 #let parse-args(theorems) = {
