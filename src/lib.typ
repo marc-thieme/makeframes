@@ -1,4 +1,6 @@
 #import "styles.typ" as styles
+#import "styling.typ" as styling
+#import "layout.typ": divide
 
 #let init-theorems(kind, default-style: styles.hint, ..theorems) = {
   import "parse.typ"
