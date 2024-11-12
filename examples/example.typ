@@ -1,5 +1,7 @@
 #import "../src/lib.typ": *
 
+#set page(height: auto)
+
 #let (example, feature, variant) = init-theorems(
   "core-theorems",
   feature: ("Feature",),
