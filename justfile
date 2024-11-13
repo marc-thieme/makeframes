@@ -8,7 +8,7 @@ setup: && _add-assets-to-git-exclude
 _add-assets-to-git-exclude:
     echo assets >> .git/info/exclude
 
-push-new-readme: (example-compile "assets/README.svg") && commit-and-push-assets
+push-new-readme: (readme-compile "assets/README.svg") && commit-and-push-assets
 
 [confirm("Do you want to commit and push all changes on the assets branch?")]
 [script]
@@ -19,7 +19,7 @@ commit-and-push-assets commit-msg="Update.":
     git push
 
 readme-watch output="":
-    typst watch {{readme-typ-file}} {{output}} --root ..
+    typst watch {{readme-typ-file}} {{output}}
 
 readme-compile output="":
-    typst compile {{readme-typ-file}} {{output}} --root ..
+    typst compile {{readme-typ-file}} {{output}}
