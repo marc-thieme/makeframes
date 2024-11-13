@@ -1,7 +1,7 @@
 [package]
-name = "theorems"
+name = "makeframes"
 version = "0.0.0"
 entrypoint = "src/lib.typ"
 authors = ["Marc Thieme"]
 license = "MIT"
-description = "Display formatted and boxed theorems, definitions and co. with custom colors and headlines."
+description = "Beautiful, flexible, integrated. Display custom frames for theorems, environments, etc. Attractive visuals and a syntax which blends into the source seemlessly."

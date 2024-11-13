@@ -6,11 +6,11 @@
   .map(color => color.lighten(70%).desaturate(50%))
 }
 
-#let parse-args(theorems) = {
-  assert(theorems.pos() == (), message: "Unexpected positional arguments: " + repr(theorems.pos()))
+#let parse-args(frames) = {
+  assert(frames.pos() == (), message: "Unexpected positional arguments: " + repr(frames.pos()))
 
   // Canonicalize and validate arguments
-  let args = for (id, args) in theorems.named() {
+  let args = for (id, args) in frames.named() {
     assert(type(args) == array, message: "Please provide an array for each theorem")
     let (supplement, col, ..) = args + (auto,) // Denote color with 'auto' if omitted
     assert(type(supplement) in (content, str))

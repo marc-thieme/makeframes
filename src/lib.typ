@@ -2,11 +2,11 @@
 #import "styling.typ" as styling
 #import "layout.typ": divide
 
-#let init-theorems(kind, default-style: styles.hint, ..theorems) = {
+#let make-frames(kind, default-style: styles.hint, ..frames) = {
   import "parse.typ"
   import "layout.typ"
 
-  for (id, supplement, color) in parse.parse-args(theorems) {
+  for (id, supplement, color) in parse.parse-args(frames) {
     ((id): layout.factory(default-style, supplement, kind, color))
   }
 }

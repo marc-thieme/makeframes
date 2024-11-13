@@ -2,8 +2,8 @@
 
 #set page(height: auto)
 
-#let (example, feature, variant) = init-theorems(
-  "core-theorems",
+#let (example, feature, variant) = make-frames(
+  "core-frames",
   feature: ("Feature",),
   variant: ("Feature Variant",),
   example: ("Example", gray),
@@ -30,7 +30,7 @@ Whereas:
   As you can see, this element displays a different kind and color. In fact,
   we can define arbitrary such kinds. The colors can be provided or automatically generated.
 
-  As long as all kinds are associated with the same identifier in the call to `init-theorems`,
+  As long as all kinds are associated with the same identifier in the call to `make-frames`,
   they will use the same counter.
 ]
 
