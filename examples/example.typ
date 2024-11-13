@@ -35,8 +35,6 @@ Whereas:
 ]
 
 = Feature List
-Here is a list of features. This text is repeated two times for both styles.
-
 #let layout-features(style) = [
   #let (example, feature, variant) = (
     example.with(style: style),
@@ -77,7 +75,10 @@ If you want to be brief, you can provide `[]` as body (i.e. last parameter) and 
 ]
 ]
 
+Here is a list of features. This text is repeated two times for both styles.
+== Style that embeds with the text flow
 #layout-features(styles.hint)
+== Style that draws boxes
 #layout-features(styles.boxy)
 
 #feature[References][
