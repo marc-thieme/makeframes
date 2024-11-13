@@ -1,1 +1,1 @@
-![Introductory PDF](https://gitlab.kit.edu/marc.thieme/theorems/-/raw/assets/README.svg?ref_type=heads)
+![Introductory PDF](https://raw.githubusercontent.com/marc-thieme/makeframes/refs/heads/assets/README.svg)
