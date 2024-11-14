@@ -36,7 +36,7 @@ In contrast:
 Import and define your desired frames:
 
 ```typst
-#import "@preview/frame-it:0.0.5"
+#import "@preview/frame-it:1.0.0"
 
 #let (example, feature, variant, syntax) = make-frames(
   // This identifies the counter used for all theorems in this definition

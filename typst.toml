@@ -1,6 +1,6 @@
 [package]
 name = "frame-it"
-version = "0.0.0"
+version = "1.0.0"
 entrypoint = "src/lib.typ"
 authors = ["Marc Thieme"]
 repository = "https://github.com/marc-thieme/frame-it"
