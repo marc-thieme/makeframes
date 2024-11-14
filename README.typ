@@ -3,7 +3,7 @@
 #set page(height: auto)
 
 #let (example, feature, variant, syntax) = make-frames(
-  style: styles.hint,
+  default-style: styles.hint,
   "core-frames",
   feature: ("Feature",),
   variant: ("Feature Variant",),
@@ -12,7 +12,34 @@
 )
 #let syntax = syntax.with(style: styles.boxy)
 
+= Quick Start
+Import and define your desired frames:
+
+```typst
+#import "@preview/frame-it:0.0.5"
+
+#let (example, feature, variant, syntax) = make-frames(
+  "counter-id", // This identifies the counter used for all theorems in this definition
+  theorem: ("Theorem",),
+  definition: ("Definition",),
+  example: ("Example", gray), // You can provide a color or leave it out and it will be generated
+  corollary: ("Corollary",), // You can add as many as you want
+)
+```
+
+How to use it is explained below. Here is a quick example:
+```typst
+#example[Title][Optional Tag][
+  Body, i.e. large content block for the frame.
+]
+```
+which yields
+#example(style: styles.boxy)[Title][Optional Tag][
+  Body, i.e. large content block for the frame.
+]
+
 = Introduction
+#link("https://github.com/marc-thieme/frame-it")[Github]
 
 This library offers a straightforward way to define and use custom environments in your documents. Its syntax is designed to integrate seamlessly with your source code.
 
@@ -107,8 +134,10 @@ And use them like this:
 
 #syntax[
 ```typst
-#feature[Unobtrusive Style][Works well for frequent use][Blends into text flow][
-The default style highlights text with a subtle colored line along the side, preserving the flow of the document.
+#feature[Distinct Highlight][Best for occasional use][More noticeable][
+  The default style, `styles.boxy`, is eye-catching and intended to stand out from the surrounding text.
+]
+
 ]
 ```  
 ]
@@ -121,7 +150,18 @@ Or using an explicit styling function:
   To skip the header entirely, leave the title parameter blank.
 ]
 ```
-This styling function can be provided as default for all frame kinds defined in one call to `make-frames` as well as on each invocation of a frame as well.
+This styling function can be provided as default for all frame kinds:
+```typst
+#let (example, feature, variant, syntax) = make-frames(
+  default-style: styles.hint,
+  "core-frames",
+  feature: ("Feature",),
+  variant: ("Feature Variant",),
+  example: ("Example", gray),
+  syntax: ("Syntax",),
+)
+```
+Note that this only affects those defined in the same call to `default-style`.
 ]
 
 #syntax[Custom Styling Function][
