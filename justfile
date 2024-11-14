@@ -40,6 +40,11 @@ pre-commit: (readme-compile "/dev/null" "-f svg")
 
 _version-regex := '[0-9]+\.[0-9]+\.[0-9]+'
 release new-version:
+    @echo Testing if index and staging area are empty
+    test -z "$(git status --porcelain)"
     sed -Ei 's|#import "@preview/frame-it:{{_version-regex}}"|#import "@preview/frame-it:{{new-version}}"|g' README.typ
     sed -Ei 's|version = "{{_version-regex}}"|version = "{{new-version}}"|g' typst.toml
+    git add README.typ typst.toml
+    git commit -m "Bump version to {{new-version}}."
+    test -z "$(git status --porcelain)" # Just to make sure we didn't screw up
     @echo Don\'t forget to open a pull request for the new version!
