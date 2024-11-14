@@ -1,6 +1,6 @@
 #import "styling.typ" as styling
 #import "layout.typ": divide
- 
+
 #let body-inset = 0.8em
 #let stroke-width = 0.13em
 #let corner-radius = 5pt
@@ -76,7 +76,7 @@
             v(body-inset - 1em)
           })
           body
-        }
+        },
       ),
     )
   }
@@ -124,7 +124,11 @@
     let text = {
       show: styling.dividers-as({
         v(body-inset - 1em)
-        line(length: 100% + body-inset, start: (-body-inset, 0pt), stroke: accent-color + stroke-width)
+        line(
+          length: 100% + body-inset,
+          start: (-body-inset, 0pt),
+          stroke: accent-color + stroke-width,
+        )
         v(body-inset - 1em)
       })
 
@@ -136,8 +140,8 @@
     }
 
     place(line(stroke: stroke, angle: 90deg, length: measure(text).height))
-    
+
     text
   })
- }
+}
 

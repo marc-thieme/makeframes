@@ -119,64 +119,64 @@ For example: @reference-tag.
 You define one or more styles by using the `make-frames` function:
 
 #syntax[Initialization][
-```typst
-#let (example, feature, variant, syntax) = make-frames(
-  "core-frames",
-  feature: ("Feature",),
-  variant: ("Feature Variant",),
-  example: ("Example", gray),
-  syntax: ("Syntax",),
-)
-```
+  ```typst
+  #let (example, feature, variant, syntax) = make-frames(
+    "core-frames",
+    feature: ("Feature",),
+    variant: ("Feature Variant",),
+    example: ("Example", gray),
+    syntax: ("Syntax",),
+  )
+  ```
 ]
 
 And use them like this:
 
 #syntax[
-```typst
-#feature[Distinct Highlight][Best for occasional use][More noticeable][
-  The default style, `styles.boxy`, is eye-catching and intended to stand out from the surrounding text.
+  ```typst
+  #feature[Distinct Highlight][Best for occasional use][More noticeable][
+    The default style, `styles.boxy`, is eye-catching and intended to stand out from the surrounding text.
+  ]
+
+  ]
+  ```
 ]
 
-]
-```  
-]
-
-Or using an explicit styling function: 
+Or using an explicit styling function:
 
 #syntax[
-```typst
-#variant(style: styles.boxy)[
-  To skip the header entirely, leave the title parameter blank.
-]
-```
-This styling function can be provided as default for all frame kinds:
-```typst
-#let (example, feature, variant, syntax) = make-frames(
-  default-style: styles.hint,
-  "core-frames",
-  feature: ("Feature",),
-  variant: ("Feature Variant",),
-  example: ("Example", gray),
-  syntax: ("Syntax",),
-)
-```
-Note that this only affects those defined in the same call to `default-style`.
+  ```typst
+  #variant(style: styles.boxy)[
+    To skip the header entirely, leave the title parameter blank.
+  ]
+  ```
+  This styling function can be provided as default for all frame kinds:
+  ```typst
+  #let (example, feature, variant, syntax) = make-frames(
+    default-style: styles.hint,
+    "core-frames",
+    feature: ("Feature",),
+    variant: ("Feature Variant",),
+    example: ("Example", gray),
+    syntax: ("Syntax",),
+  )
+  ```
+  Note that this only affects those defined in the same call to `default-style`.
 ]
 
 #syntax[Custom Styling Function][
-When defining your own styling function, it has to have the following signature:
-```typst
-let factory(title: content, tags: (content), body: content, supplement: string or content, number, args) = …
-``` 
-The content it returns will be placed into the document without modifications.
+  When defining your own styling function, it has to have the following signature:
+  ```typst
+  let factory(title: content, tags: (content), body: content, supplement: string or content, number, args) = …
+  ```
+  The content it returns will be placed into the document without modifications.
 ]
 
 #syntax[Styling Dividers][
-If your custom styling function shall support dividers, it must include a show rule in its body:
-```typst
-show: styling.dividers-as(object-which-will-be-used-as-divider)
-```
+  If your custom styling function shall support dividers, it must include a show rule in its body:
+  ```typst
+  show: styling.dividers-as(object-which-will-be-used-as-divider)
+  ```
 ]
 
 For more information on how to define your own styling function, please look into the `styling` module.
@@ -194,7 +194,7 @@ Here are a few edge cases.
   #lorem(20)
 ]
 
-#example[Example][Tags of various sizes][$ sum_sum^sum$][Extra vertical space: #v(1cm)][
+#example[Example][Tags of various sizes][$sum_sum^sum$][Extra vertical space: #v(1cm)][
   #lorem(20)
 ]
 

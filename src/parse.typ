@@ -2,23 +2,34 @@
   let samples = for i in range(count) {
     (i * 100% / count,)
   }
-  gradient.linear(..color.map.rainbow.rev()).samples(..samples)
-  .map(color => color.lighten(70%).desaturate(50%))
+  gradient
+    .linear(..color.map.rainbow.rev())
+    .samples(..samples)
+    .map(color => color.lighten(70%).desaturate(50%))
 }
 
 #let parse-args(frames) = {
-  assert(frames.pos() == (), message: "Unexpected positional arguments: " + repr(frames.pos()))
+  assert(
+    frames.pos() == (),
+    message: "Unexpected positional arguments: " + repr(frames.pos()),
+  )
 
   // Canonicalize and validate arguments
   let args = for (id, args) in frames.named() {
-    assert(type(args) == array, 
+    assert(
+      type(args) == array,
       message: "Please provide an array of the form '(<substitute name>, [<custom argument passed to styling function>])', where the latter is optional.
-      The problem arises from frame-kind " + repr(id) + " which receives arguments " + repr(args)
+      The problem arises from frame-kind " + repr(id) + " which receives arguments " + repr(args),
     )
-    let (supplement, col, ..) = args + (auto,) // Denote color with 'auto' if omitted
+    let (supplement, col, ..) = args + (
+      auto,
+    ) // Denote color with 'auto' if omitted
     assert(type(supplement) in (content, str))
-    assert(type(col) in (color, type(auto)), message: "Please provide a color as second arguments: "+supplement+" (was "+type(col)+")")
-    ((id, supplement, col), )
+    assert(
+      type(col) in (color, type(auto)),
+      message: "Please provide a color as second arguments: " + supplement + " (was " + type(col) + ")",
+    )
+    ((id, supplement, col),)
   }
 
   // Count auto in args and generate colors
