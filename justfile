@@ -23,3 +23,9 @@ readme-watch output="":
 
 readme-compile output="":
     typst compile {{readme-typ-file}} {{output}}
+
+_version-regex := '[0-9]+\.[0-9]+\.[0-9]+'
+release new-version:
+    sed -Ei 's|#import "@preview/frame-it:{{_version-regex}}"|#import "@preview/frame-it:{{new-version}}"|g' README.typ
+    sed -Ei 's|version = "{{_version-regex}}"|version = "{{new-version}}"|g' typst.toml
+    echo Don\'t forget to open a pull request for the new version!
