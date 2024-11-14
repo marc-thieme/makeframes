@@ -1,4 +1,4 @@
-#let spawn-theorem(
+#let spawn-frame(
   style,
   kind,
   title,
@@ -55,7 +55,7 @@
     if title-and-tags.pos() != () {
       (title, ..tags) = title-and-tags.pos()
     }
-    spawn-theorem(style, kind, title, tags, body, supplement, arg)
+    spawn-frame(style, kind, title, tags, body, supplement, arg)
   }
 )
 

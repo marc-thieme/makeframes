@@ -8,7 +8,7 @@
 #let boxy(title, tags, body, supplement, number, accent-color) = {
   assert(
     type(accent-color) == color,
-    message: "Please provide a color as argument for the theorem instance" + supplement,
+    message: "Please provide a color as argument for the frame instance" + supplement,
   )
 
   let stroke = accent-color + stroke-width
