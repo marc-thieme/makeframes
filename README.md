@@ -1,1 +1,1 @@
-![Introductory PDF](https://raw.githubusercontent.com/marc-thieme/makeframes/refs/heads/assets/README.svg)
+![Introductory PDF](https://raw.githubusercontent.com/marc-thieme/frame-it/refs/heads/assets/README.svg)
