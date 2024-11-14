@@ -2,12 +2,15 @@
 
 #set page(height: auto)
 
-#let (example, feature, variant) = make-frames(
+#let (example, feature, variant, syntax) = make-frames(
   "core-frames",
   feature: ("Feature",),
   variant: ("Feature Variant",),
   example: ("Example", gray),
+  syntax: ("Syntax",),
 )
+#let syntax = syntax.with(style: styles.boxy)
+
 = Introduction
 This library allows you to easily define and use a variety of custom environments
 in your documents. The syntax is designed to integrate well into the source code.
@@ -86,6 +89,56 @@ Here is a list of features. This text is repeated two times for both styles.
 ] <reference-tag>
 
 Just like here: @reference-tag.
+
+= Syntax
+You define one or more styles by using the `make-frames` function:
+
+#syntax[Initialization][
+```typst
+#let (example, feature, variant, syntax) = make-frames(
+  "core-frames",
+  feature: ("Feature",),
+  variant: ("Feature Variant",),
+  example: ("Example", gray),
+  syntax: ("Syntax",),
+)
+```
+]
+
+And use them like this:
+
+#syntax[
+```typst
+#feature[Unobtrusive Style][Works well for frequent use][Blends into text flow][
+The default style highlights text with a subtle colored line along the side, preserving the flow of the document.
+]
+```  
+]
+
+Or using an explicit styling function: 
+
+#syntax[
+```typst
+#variant(style: styles.boxy)[
+  To skip the header entirely, leave the title parameter blank.
+]
+```
+]
+
+#syntax[Custom Styling Function][
+When defining your own styling function, it has to have the following signature:
+```typst
+let factory(title: content, tags: (content), body: content, supplement: string or content, number, args)
+``` 
+The content it returns will be placed into the document without modifications.
+]
+
+#syntax[Styling Dividers][
+If your custom styling function shall support dividers, it must include a show rule in its body:
+```typst
+show: styling.dividers-as(object-which-will-be-used-as-divider)
+```
+]
 
 = Edge Cases
 #let (example, feature, variant) = (
