@@ -3,14 +3,34 @@
 #set page(height: auto)
 
 #let (example, feature, variant, syntax) = make-frames(
-  style: styles.hint,
   "core-frames",
   feature: ("Feature",),
   variant: ("Feature Variant",),
   example: ("Example", gray),
   syntax: ("Syntax",),
 )
-#let syntax = syntax.with(style: styles.boxy)
+
+= Introduction
+#link("https://github.com/marc-thieme/frame-it", text(blue)[Frame-It]) offers a straightforward way to define and use custom environments in your documents. Its syntax is designed to integrate seamlessly with your source code.
+
+Two predefined styles are included by default. You can also create custom styling functions that use the same user-facing API while giving you complete control over the Typst elements in your document.
+
+#feature[Distinct Highlight][Best for occasional use][More noticeable][
+  The default style, `styles.boxy`, is eye-catching and intended to stand out from the surrounding text.
+]
+
+In contrast:
+
+#feature(style: styles.hint)[Unobtrusive Style][Ideal for frequent use][Blends into text flow][
+  The alternative style `styles.hint` highlights text with a subtle colored line along the side, preserving the document's flow.
+]
+
+#example[A different frame kind][
+  You can define different classes or types of frames, which alter the substitute and the frame's color. As shown here, this is an example frame.
+  You can create as many different kinds as you want.
+
+  As long as all kinds use the same identifier with `make-frames`, they share a common counter.
+]
 
 = Quick Start
 Import and define your desired frames:
@@ -38,31 +58,8 @@ How to use it is explained below. Here is a quick example:
 ]
 ```
 which yields
-#example(style: styles.boxy)[Title][Optional Tag][
+#example[Title][Optional Tag][
   Body, i.e. large content block for the frame.
-]
-
-= Introduction
-#link("https://github.com/marc-thieme/frame-it", text(blue)[Frame-It]) offers a straightforward way to define and use custom environments in your documents. Its syntax is designed to integrate seamlessly with your source code.
-
-Two predefined styles are included by default. You can also create custom styling functions that use the same user-facing API while giving you complete control over the Typst elements in your document.
-
-== Overview
-#feature(style: styles.boxy)[Distinct Highlight][Best for occasional use][More noticeable][
-  The default style, `styles.boxy`, is eye-catching and intended to stand out from the surrounding text.
-]
-
-In contrast:
-
-#feature[Unobtrusive Style][Ideal for frequent use][Blends into text flow][
-  The alternative style `styles.hint` highlights text with a subtle colored line along the side, preserving the document's flow.
-]
-
-#example[A different frame kind][
-  You can define different classes or types of frames, which alter the substitute and the frame's color. As shown here, this is an example frame.
-  You can create as many different kinds as you want.
-
-  As long as all kinds use the same identifier with `make-frames`, they share a common counter.
 ]
 
 = Feature List
@@ -83,7 +80,7 @@ In contrast:
   ]
 
   #feature[][
-    If you don’t require a custom title but still want to display the element type, use [] as the title placeholder.
+    If you don’t require a custom title but still want to display the element type, use `[]` as the title placeholder.
   ]
 
   #variant[][Single Tag][
@@ -139,8 +136,6 @@ And use them like this:
   #feature[Distinct Highlight][Best for occasional use][More noticeable][
     The default style, `styles.boxy`, is eye-catching and intended to stand out from the surrounding text.
   ]
-
-  ]
   ```
 ]
 
@@ -184,11 +179,6 @@ Or using an explicit styling function:
 For more information on how to define your own styling function, please look into the `styling` module.
 
 = Edge Cases
-#let (example, feature, variant) = (
-  example.with(style: styles.boxy),
-  variant.with(style: styles.boxy),
-  feature.with(style: styles.boxy),
-)
 
 Here are a few edge cases.
 
