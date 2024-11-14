@@ -39,9 +39,7 @@ which yields
 ]
 
 = Introduction
-#link("https://github.com/marc-thieme/frame-it")[Github]
-
-This library offers a straightforward way to define and use custom environments in your documents. Its syntax is designed to integrate seamlessly with your source code.
+#link("https://github.com/marc-thieme/frame-it", text(blue)[Frame-It]) offers a straightforward way to define and use custom environments in your documents. Its syntax is designed to integrate seamlessly with your source code.
 
 Two predefined styles are included by default. You can also create custom styling functions that use the same user-facing API while giving you complete control over the Typst elements in your document.
 
