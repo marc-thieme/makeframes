@@ -3,7 +3,7 @@
 #set page(height: auto)
 
 #let (example, feature, variant, syntax) = make-frames(
-  default-style: styles.hint,
+  style: styles.hint,
   "core-frames",
   feature: ("Feature",),
   variant: ("Feature Variant",),
@@ -151,7 +151,7 @@ Or using an explicit styling function:
   This styling function can be provided as default for all frame kinds:
   ```typst
   #let (example, feature, variant, syntax) = make-frames(
-    default-style: styles.hint,
+    style: styles.hint,
     "core-frames",
     feature: ("Feature",),
     variant: ("Feature Variant",),
@@ -159,7 +159,7 @@ Or using an explicit styling function:
     syntax: ("Syntax",),
   )
   ```
-  Note that this only affects those defined in the same call to `default-style`.
+  Note that this only affects those defined in the same call to `make-frames`.
 ]
 
 #syntax[Custom Styling Function][
