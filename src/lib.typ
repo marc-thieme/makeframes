@@ -14,5 +14,5 @@
 /*
 Definition of styling:
 
-let factory(title: content, tags: (content), body: content, supplement: string or content, numbering)
+let factory(title: content, tags: (content), body: content, supplement: string or content, number, args)
 */
