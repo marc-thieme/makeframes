@@ -19,18 +19,17 @@ This library offers a straightforward way to define and use custom environments 
 Two predefined styles are included by default. You can also create custom styling functions that use the same user-facing API while giving you complete control over the Typst elements in your document.
 
 == Overview
-
-#feature[Unobtrusive Style][Ideal for frequent use][Blends into text flow][
-  The default style highlights text with a subtle colored line along the side, preserving the document's flow.
+#feature(style: styles.boxy)[Distinct Highlight][Best for occasional use][More noticeable][
+  The default style, `styles.boxy`, is eye-catching and intended to stand out from the surrounding text.
 ]
 
 In contrast:
 
-#feature(style: styles.boxy)[Distinct Highlight][Best for occasional use][More noticeable][
-  The alternative style, `styles.boxy`, is more eye-catching and intended to stand out from the surrounding text.
+#feature[Unobtrusive Style][Ideal for frequent use][Blends into text flow][
+  The alternative style `styles.hint` highlights text with a subtle colored line along the side, preserving the document's flow.
 ]
 
-#example[Another Example Style][
+#example[A different frame kind][
   You can define different classes or types of frames, which alter the substitute and the frame's color. As shown here, this is an example frame.
   You can create as many different kinds as you want.
 

@@ -2,7 +2,7 @@
 #import "styling.typ" as styling
 #import "layout.typ": divide
 
-#let make-frames(kind, default-style: styles.hint, ..frames) = {
+#let make-frames(kind, default-style: styles.boxy, ..frames) = {
   import "parse.typ"
   import "layout.typ"
 
