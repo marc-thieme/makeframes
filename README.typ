@@ -19,11 +19,15 @@ Import and define your desired frames:
 #import "@preview/frame-it:0.0.5"
 
 #let (example, feature, variant, syntax) = make-frames(
-  "counter-id", // This identifies the counter used for all theorems in this definition
+  // This identifies the counter used for all theorems in this definition
+  "counter-id",
   theorem: ("Theorem",),
+  // For each frame kind, you have to provide its supplement title to be displayed
   definition: ("Definition",),
-  example: ("Example", gray), // You can provide a color or leave it out and it will be generated
-  corollary: ("Corollary",), // You can add as many as you want
+  // You can provide a color or leave it out and it will be generated
+  example: ("Example", gray),
+  // You can add as many as you want
+  corollary: ("Corollary",),
 )
 ```
 
