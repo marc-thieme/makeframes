@@ -3,6 +3,7 @@
 #set page(height: auto)
 
 #let (example, feature, variant, syntax) = make-frames(
+  style: styles.hint,
   "core-frames",
   feature: ("Feature",),
   variant: ("Feature Variant",),
@@ -12,32 +13,32 @@
 #let syntax = syntax.with(style: styles.boxy)
 
 = Introduction
-This library allows you to easily define and use a variety of custom environments
-in your documents. The syntax is designed to integrate well into the source code.
 
-We ship two different predefined styles. On top of that, you can freely define your own
-styling function which can access the features provided by the user.
+This library offers a straightforward way to define and use custom environments in your documents. Its syntax is designed to integrate seamlessly with your source code.
 
-= Feature highlight
-#feature[An unobstrusive style][ideal to be used regularily][does not break the flow][
-  The default style is to only highlight the text with a colored line on the side.
+Two predefined styles are included by default. You can also create custom styling functions that use the same user-facing API while giving you complete control over the Typst elements in your document.
 
-]
-Whereas:
-#feature(style: styles.boxy)[Special Highlight][Use less regularily][Strong highlight][
-  The secondary style called `styles.boxy` is much more eye-catching and not embed
-  seamlessly into the textflow.
+== Overview
+
+#feature[Unobtrusive Style][Ideal for frequent use][Blends into text flow][
+  The default style highlights text with a subtle colored line along the side, preserving the document's flow.
 ]
 
-#example[A different type][
-  As you can see, this element displays a different kind and color. In fact,
-  we can define arbitrary such kinds. The colors can be provided or automatically generated.
+In contrast:
 
-  As long as all kinds are associated with the same identifier in the call to `make-frames`,
-  they will use the same counter.
+#feature(style: styles.boxy)[Distinct Highlight][Best for occasional use][More noticeable][
+  The alternative style, `styles.boxy`, is more eye-catching and intended to stand out from the surrounding text.
+]
+
+#example[Another Example Style][
+  You can define different classes or types of frames, which alter the substitute and the frame's color. As shown here, this is an example frame.
+  You can create as many different kinds as you want.
+
+  As long as all kinds use the same identifier with `make-frames`, they share a common counter.
 ]
 
 = Feature List
+
 #let layout-features(style) = [
   #let (example, feature, variant) = (
     example.with(style: style),
@@ -45,50 +46,48 @@ Whereas:
     feature.with(style: style),
   )
 
-  
-#feature[Element without tags][
-  The most standard way to write down an element is by providing a title as first
-  argument and a body as second argument.
+  #feature[Element with Title and Content][
+    The simplest way to create an element is by providing a title as the first argument and content as the second.
+  ]
+
+  #variant[Element with Tags][Customizable Tags][!][
+    Elements can include multiple tags placed between the title and the content.
+  ]
+
+  #feature[][
+    If you don’t require a custom title but still want to display the element type, use [] as the title placeholder.
+  ]
+
+  #variant[][Single Tag][
+    You can include tags even when no title is provided.
+  ]
+
+  #variant[
+    To omit the header entirely, leave the title parameter empty.
+  ]
+
+  #feature[Element without Content][Optional Tags Only][]
+  For brief elements, use [] as the body to omit the content.
+
+  #feature[Element with Divider][
+    Insert `divide()` to add a divider within your content for a visual break:
+    #divide()
+    And then continue with your text below the divider.
+  ]
 ]
 
-#variant[Element][with tag][!][
-  Our blocks can have an arbitrary number of tags to be put between title and body.
-]
+The following features are demonstrated in both predefined styles.
 
-#feature[][
-  If you do not want to display a custom title but still the kind of this element, 
-  you can provide `[]` in place of the title.
-]
-
-#variant[][A tag][
-  Providing tags is still possible.
-]
-
-#variant[
-  If you do not want a header at all, you can just leave out the title parameter.
-]
-
-#feature[Element without a body][Tags are still possible][]
-If you want to be brief, you can provide `[]` as body (i.e. last parameter) and the body is going to be omitted.
-
-#feature[Element with dividor][
-  With `divide()`
-  #divide()
-  You can place a divider inside your text body to add a visual layer of separation.
-]
-]
-
-Here is a list of features. This text is repeated two times for both styles.
-== Style that embeds with the text flow
+== Style Blending into Text Flow
 #layout-features(styles.hint)
-== Style that draws boxes
+== Boxy Style
 #layout-features(styles.boxy)
 
 #feature[References][
-  Lastly, you can reference elements as usual with `<… tag …>`.
+  Elements can be referenced as usual with `<... tag ...>`.
 ] <reference-tag>
 
-Just like here: @reference-tag.
+For example: @reference-tag.
 
 = Syntax
 You define one or more styles by using the `make-frames` function:
@@ -123,12 +122,13 @@ Or using an explicit styling function:
   To skip the header entirely, leave the title parameter blank.
 ]
 ```
+This styling function can be provided as default for all frame kinds defined in one call to `make-frames` as well as on each invocation of a frame as well.
 ]
 
 #syntax[Custom Styling Function][
 When defining your own styling function, it has to have the following signature:
 ```typst
-let factory(title: content, tags: (content), body: content, supplement: string or content, number, args)
+let factory(title: content, tags: (content), body: content, supplement: string or content, number, args) = …
 ``` 
 The content it returns will be placed into the document without modifications.
 ]
@@ -140,6 +140,8 @@ show: styling.dividers-as(object-which-will-be-used-as-divider)
 ```
 ]
 
+For more information on how to define your own styling function, plaese look into the `styling` module.
+
 = Edge Cases
 #let (example, feature, variant) = (
   example.with(style: styles.boxy),
@@ -147,23 +149,25 @@ show: styling.dividers-as(object-which-will-be-used-as-divider)
   feature.with(style: styles.boxy),
 )
 
-Here, we present some gracefully handled edge cases.
-#example[Test][Here comes a lot of text. This should make it so there is no room for the supplement][
+Here are a few edge cases.
+
+#example[Test][Long content example without space for additional elements][
   #lorem(20)
 ]
 
-#example[Here][Tags have different sizes][$ sum_sum^sum$][Some vertical space: #v(1cm)][
+#example[Example][Tags of various sizes][$ sum_sum^sum$][Extra vertical space: #v(1cm)][
   #lorem(20)
 ]
 
 #example[][
   #example[][
     #example(style: styles.hint)[][
-      When nesting definitions, we want the counter to increase from outer to inner.
+      When nested, counters increment from outer to inner elements.
     ]
   ]
 ]
 
 #example[][
-  And have the counter continue normally.
+  Counters continue incrementing sequentially in non-nested elements.
 ]
+
