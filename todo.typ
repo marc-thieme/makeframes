@@ -34,8 +34,8 @@ _Scrapped_ because we supply styling in the arguments now.
 == [DONE] Hint Styling/Variants 
 Which are less intrusive, for example only highlighting the edge of the page in a color.
 
-== [DONE] Style using arguemnt
-We do not like the syntax `#(slim.theorem)[...]` anynmore because it is less discoverable, the brace is weird
+== [DONE] Style using argument
+We do not like the syntax `#(slim.theorem)[...]` anymore because it is less discoverable, the brace is weird
 and you have to add the slim argument to the `make-frames` destructuring, which is unexpected.
 
 We prefer a syntax where the theorem functions have a positional `style: "slim"` argument.
@@ -54,7 +54,7 @@ DONE: `frame-theorems` exports inline and slim elements where all other frames c
 in the altered versions. In the future, when typst supports functions as scopes, we can add
 this preferred syntax:
 ```typst
-definition.small[Inifinite Primes][...]
+definition.small[Infinite Primes][...]
 ```
 Alternatively, we might add another function which initializes frames without a default
 `definition[][]` export and instead each theorem kind is only a dictionary with all the versions:

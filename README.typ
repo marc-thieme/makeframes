@@ -140,7 +140,7 @@ show: styling.dividers-as(object-which-will-be-used-as-divider)
 ```
 ]
 
-For more information on how to define your own styling function, plaese look into the `styling` module.
+For more information on how to define your own styling function, please look into the `styling` module.
 
 = Edge Cases
 #let (example, feature, variant) = (
